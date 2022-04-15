@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:13:54 by jaham             #+#    #+#             */
-/*   Updated: 2022/03/14 15:15:17 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/15 19:43:04 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_buffer	*find_lst(t_buffer **target, int fd)
 		target = &((*target)->next);
 	if (*target)
 		return (*target);
-	new = malloc(sizeof(t_buffer));
+	new = ft_malloc(sizeof(t_buffer), 1);
 	if (!new)
 	{
 		perror(NULL);

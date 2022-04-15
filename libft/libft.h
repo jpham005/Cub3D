@@ -73,6 +73,9 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 // additional libft
 void	*ft_malloc(size_t el_size, size_t el_num);
 void	ft_free(void **ptr);
+void	ft_pexit(char *str, int exit_status);
 char	*get_next_line(int fd);
+int		ft_iseq(char *s1, char *s2);
+void	ft_free_cdptr(char ***ptr);
 
 #endif

@@ -17,7 +17,7 @@ void	*ft_calloc(size_t nelem, size_t elsize)
 {
 	unsigned char	*ret;
 
-	ret = malloc(elsize * nelem);
+	ret = ft_malloc(elsize, nelem);
 	if (ret == NULL)
 		return (NULL);
 	ft_bzero(ret, elsize * nelem);

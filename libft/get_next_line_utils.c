@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 02:53:22 by jaham             #+#    #+#             */
-/*   Updated: 2022/03/14 15:06:48 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/15 19:41:10 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	*init_string(t_string *string)
 {
-	string->str = malloc(sizeof(char));
+	string->str = ft_malloc(sizeof(char), 1);
 	if (!string->str)
 	{
 		perror(NULL);
@@ -34,7 +34,7 @@ char	*append_string(t_string *string, char c)
 
 	if (string->len >= string->size)
 	{
-		temp = malloc(sizeof(char) * (string->size << 1));
+		temp = ft_malloc(sizeof(char), (string->size << 1));
 		if (!temp)
 		{
 			perror(NULL);
@@ -54,17 +54,8 @@ char	*copy_string(t_string *string)
 	char	*ret;
 
 	if (!string->len)
-	{
-		ret = malloc(sizeof(char));
-		if (!ret)
-		{
-			perror(NULL);
-			return (NULL);
-		}
-		ret[0] = '\0';
-		return (ret);
-	}
-	ret = malloc(sizeof(char) * (string->len + 1));
+		return (NULL);
+	ret = ft_malloc(sizeof(char), (string->len + 1));
 	if (!ret)
 	{
 		perror(NULL);

@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/14 09:13:11 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/15 20:52:11 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,13 @@ LIBMLX_DIR			:=	minilibx_mms_20210621
 LIBMLX_INCLUDE		:=	$(LIBMLX_DIR)
 LIBMLX				:=	libmlx.dylib
 
-SRCS				:=	main.c
+SRCS				:=	main.c map_grid.c utils.c get_texture.c \
+						get_single_texture.c parse_map.c get_grid_list.c \
+						get_grid.c grid_node.c
 OBJS				:=	$(SRCS:.c=.o)
 
 CC					:=	cc
-CFLAGS				:=	#-Wall -Wextra -Werror -g #fsanitize=address
+CFLAGS				:=	-g#-Wall -Wextra -Werror -g #fsanitize=address
 RM					:=	rm -f
 
 .PHONY				:	all

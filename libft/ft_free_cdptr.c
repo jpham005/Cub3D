@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cheat.h                                            :+:      :+:    :+:   */
+/*   ft_free_cdptr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 22:46:16 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/13 22:46:58 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/15 15:53:00 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/15 15:59:22 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHEAT_H
-# define CHEAT_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <fcntl.h>
+void	ft_free_cdptr(char ***ptr)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while ((*ptr)[i])
+		ft_free((void **) &(*ptr)[i++]);
+	free(*ptr);
+	*ptr = NULL;
+}
