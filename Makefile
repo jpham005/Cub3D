@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/16 13:42:17 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/16 14:56:20 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ PARSER_SRCS			:=	check_field_point.c check_grid.c check_player_point.c \
 						t_grid_node_manage.c t_map_grid_manage.c
 PARSER_SRCS			:=	$(addprefix $(PARSER_DIR)/, $(PARSER_SRCS))
 
-SRCS				:=	main.c utils.c t_map_manage.c $(PARSER_SRCS)
+SRCS				:=	main.c utils.c t_map_manage.c $(PARSER_SRCS) mlx_practice.c
 OBJS				:=	$(SRCS:.c=.o)
 
 INCLUDE				:=	.

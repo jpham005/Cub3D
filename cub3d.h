@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 13:38:42 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/16 16:47:56 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # define ERR_MESSAGE "Error: "
 # define ARG_ERR_MESSAGE ERR_MESSAGE "Usage: ./cub3d file_path"
 # define MAP_ERR_MESSAGE ERR_MESSAGE "Wrong map file"
+
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 720
 
 typedef struct s_mlx		t_mlx;
 typedef enum e_exit_status	t_exit_status;
@@ -77,4 +80,5 @@ void		clear_grid_node(t_grid_node **head);
 // utils
 void		exit_message(char *err_str, t_exit_status status);
 
+void practice(t_map *map);
 #endif
