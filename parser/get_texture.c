@@ -6,13 +6,14 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:57:59 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 17:24:56 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/16 11:09:50 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
+// 텍스쳐 구조체 초기화
 static t_texture	*init_texture(void)
 {
 	t_texture	*ret;
@@ -24,22 +25,20 @@ static t_texture	*init_texture(void)
 	return (ret);
 }
 
-static int	is_wrong_texture(t_texture *texture)
-{
-	return (!texture || !texture->no || !texture->so || !texture->we \
-			|| !texture->ea || (texture->f == -1) || (texture->c == -1));
-}
+/*
+프로토타입
+텍스쳐 정보 저장을 위해 map 구조체 받기, 읽으려는 map의 fd 받기
 
+과정
+1. 텍스쳐 구조체 초기화
+2. 6개의 정보를 받기, 순서는 무관함 (에러 발생 함수 내 에서 즉시 exit(1))
+*/
 void	get_texture(t_map *map, int map_file)
 {
-	t_texture	*new;
 	size_t		i;
 
-	new = init_texture();
+	map->texture = init_texture();
 	i = 0;
 	while (i < 6)
-		get_single_texture(new, map_file, &i);
-	if (is_wrong_texture(new))
-		exit_message(NULL, MAP_ERR_MESSAGE, EXIT_FATAL);
-	map->texture = new;
+		get_single_texture(map->texture, map_file, &i);
 }

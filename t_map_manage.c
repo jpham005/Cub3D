@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   t_map_manage.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 11:52:46 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 10:56:08 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/16 10:55:56 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/16 11:34:19 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-#include <stdlib.h>
 
-void	exit_message(char *err_str, t_exit_status status)
+t_map	*init_map(void)
 {
-	ft_putstr_fd(err_str, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(status);
+	t_map	*ret;
+
+	ret = ft_malloc(sizeof(t_map), 1);
+	ft_memset(ret, 0, sizeof(t_map));
+	return (ret);
 }

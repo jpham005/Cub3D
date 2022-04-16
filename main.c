@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 22:38:28 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 22:48:35 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/16 12:41:00 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,33 @@
 // 	return (0);
 // }
 
-int	main(int argc, char **argv)
+void	test_print(t_map *map)
 {
-	t_map	*map;
-
-	if (argc != 2)
-		exit_message(NULL, ARG_ERR_MESSAGE, EXIT_FATAL);
-	map = init_map();
-	parse_map(map, argv[1]);
 	int i = 0, j = 0;
 	while (i < map->grid_height)
 	{
 		j = 0;
 		while (j < map->grid_width)
 		{
-			printf("%d", map->grid[i][j++]);
+			if (map->grid[i][j] == 2)
+				printf(" ");
+			else
+				printf("%d", map->grid[i][j]);
+			j++;
 		}
 		printf("\n");
 		i++;
 	}
 	while (1);
+}
+
+int	main(int argc, char **argv)
+{
+	t_map	*map;
+
+	if (argc != 2)
+		exit_message(ARG_ERR_MESSAGE, EXIT_FATAL);
+	map = init_map();
+	parse_map(map, argv[1]);
+	test_print(map);
 }

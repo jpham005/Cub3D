@@ -6,62 +6,21 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 14:21:50 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 20:00:21 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/16 12:33:02 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 
-static int	convert_str_to_color(char *str)
-{
-	int	ret;
+/*
+프로토타입
+texture에 line_info값을 저장
 
-	ret = 0;
-	while (*str && (*str != '\n'))
-	{
-		if (!ft_isdigit(*str))
-			return (-1);
-		ret *= 10;
-		ret += *str - '0';
-		if (ret > 255)
-			return (-1);
-		str++;
-	}
-	return (ret);
-}
-
-static int	is_valid_color(int *color, char **dptr)
-{
-	size_t	len;
-	int		value;
-
-	len = 0;
-	while (dptr[len])
-	{
-		value = convert_str_to_color(dptr[len]);
-		if (value == -1)
-			return (0);
-		*color <<= 8;
-		*color |= value;
-		++len;
-	}
-	return (len == 3);
-}
-
-static int	get_color(char *str)
-{
-	int		ret;
-	char	**splitted;
-
-	ret = 0;
-	splitted = ft_split(str, ',');
-	if (!is_valid_color(&ret, splitted))
-		exit_message(NULL, MAP_ERR_MESSAGE, EXIT_FATAL);
-	ft_free_cdptr(&splitted);
-	return (ret);
-}
-
+과정
+1. line_info[1]은 개행이 포함되어 있으므로, substr으로 마지막 글자 제거
+2. 천장과 바닥은 색 정보만 있으므로, get_color로 정보 가져오기
+*/
 static void	set_texture_value(t_texture *texture, char **line_info)
 {
 	if (ft_iseq(line_info[0], NORTH))
@@ -78,6 +37,26 @@ static void	set_texture_value(t_texture *texture, char **line_info)
 		texture->c = get_color(line_info[1]);
 }
 
+static void	clear_line(char **line, char ***line_info)
+{
+	ft_free((void **) line);
+	ft_free_cdptr(line_info);
+}
+
+/*
+프로토타입
+텍스쳐 저장을 위해 t_texutre 받기, 읽는 map fd 받기, 몇개의 정보를 읽었는지 받기
+
+과정
+1. 한 줄 line에 받기
+2. 해당 줄이 eof인지 검사, eof이면 exit(1) (맵 좌표가 확정적으로 존재하지 않게 되기 때문)
+3. line을 공백으로 split (공백은 여러개 가능)
+4. 줄 전체가 공백이거나 개행 만 들어가 있다면 해당 줄 생략 (전체가 공백인 경우, 다음 호출에서 에러)
+5. 데이터 값이 될 line_info[1]이 없거나, 쓸데없는 데이터인 line_info[2]가 존재하면 exit(1)
+6. line_info를 바탕으로 데이터 저장
+7. 한 종류의 데이터를 읽었으므로 i 증가
+8. free 후 종료
+*/
 void	get_single_texture(t_texture *texture, int map_file, size_t *i)
 {
 	char	*line;
@@ -85,18 +64,16 @@ void	get_single_texture(t_texture *texture, int map_file, size_t *i)
 
 	line = get_next_line(map_file);
 	if (!line)
-		return ;
+		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 	line_info = ft_split(line, ' ');
 	if (!*line_info || ft_iseq(*line_info, "\n"))
 	{
-		ft_free((void **) &line);
-		ft_free_cdptr(&line_info);
+		clear_line(&line, &line_info);
 		return ;
 	}
 	if (!line_info[1] || line_info[2])
-		exit_message(NULL, MAP_ERR_MESSAGE, EXIT_FATAL);
+		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 	set_texture_value(texture, line_info);
 	(*i)++;
-	ft_free((void **) &line);
-	ft_free_cdptr(&line_info);
+	clear_line(&line, &line_info);
 }

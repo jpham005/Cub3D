@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 21:19:12 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/16 13:38:42 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ enum e_exit_status
 	EXIT_FATAL = 1
 };
 
-// map grid
-t_map_grid	*init_map_grid(void);
-void		del_map_grid(t_map_grid **map_grid);
-
-// grid node
-void		add_grid_node(t_grid_node **head, t_map_data data);
-void		clear_grid_node(t_grid_node **head);
-
-// utils
-void		exit_message(char *str, char *err_str, t_exit_status status);
-t_map		*init_map(void);
-
 // parse map
 void		parse_map(t_map *map, char *argv);
 
@@ -55,10 +43,38 @@ void		get_texture(t_map *map, int map_file);
 // get single texture
 void		get_single_texture(t_texture *texture, int map_file, size_t *i);
 
+// get color
+int			get_color(char *str);
+
 // get grid
 void		get_grid(t_map *map, int map_file);
 
 // get grid list
 t_map_grid	*get_grid_list(int map_file);
+
+//check grid
+void		check_grid(t_map *map);
+
+// check field point
+void		check_field_point(t_map *map, size_t i, size_t j);
+
+// check player point
+void		check_player_point(t_map *map, size_t i, size_t j, \
+															size_t *player_cnt);
+
+// struct management
+// t_map
+t_map		*init_map(void);
+
+// t_map_grid
+t_map_grid	*init_map_grid(void);
+void		del_map_grid(t_map_grid **map_grid);
+
+// t_grid_node
+void		add_grid_node(t_grid_node **head, t_map_data data);
+void		clear_grid_node(t_grid_node **head);
+
+// utils
+void		exit_message(char *err_str, t_exit_status status);
 
 #endif

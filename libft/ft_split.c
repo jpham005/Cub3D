@@ -24,7 +24,7 @@ static size_t	get_size(const char *s, char c)
 	i = 0;
 	while (s[i])
 	{
-		while (	c && s[i] == c)
+		while (c && s[i] == c)
 			i++;
 		temp = i;
 		while (s[i] && s[i] != c)

@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   t_grid_node_manage.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 11:37:19 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 20:24:06 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/15 20:44:03 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/16 11:30:46 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-#include <errno.h>
-#include <fcntl.h>
-#include <string.h>
 
-static int	open_map(char *argv)
+static t_grid_node	*init_grid_node(t_map_data data)
 {
-	int	ret;
+	t_grid_node	*ret;
 
-	if (!ft_iseq(argv + ft_strlen(argv) - 4, ".cub"))
-		exit_message(NULL, MAP_ERR_MESSAGE, EXIT_FATAL);
-	ret = open(argv, O_RDONLY);
-	if (ret == -1)
-		exit_message(ERR_MESSAGE, strerror(errno), EXIT_FATAL);
+	ret = ft_malloc(sizeof(t_grid_node), 1);
+	ret->data = data;
+	ret->next = NULL;
 	return (ret);
 }
 
-void	parse_map(t_map *map, char *argv)
+void	add_grid_node(t_grid_node **head, t_map_data data)
 {
-	int			map_file;
+	while (*head)
+		head = &((*head)->next);
+	*head = init_grid_node(data);
+}
 
-	map_file = open_map(argv);
-	get_texture(map, map_file);
-	get_grid(map, map_file);
-	close(map_file);
+void	clear_grid_node(t_grid_node **head)
+{
+	t_grid_node	*temp;
+
+	while (*head)
+	{
+		temp = (*head)->next;
+		ft_free((void **) head);
+		*head = temp;
+	}
 }

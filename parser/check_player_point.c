@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_grid.c                                         :+:      :+:    :+:   */
+/*   check_player_point.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 11:42:38 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 22:45:42 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/16 13:37:43 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/16 13:43:11 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
-t_map_grid	*init_map_grid(void)
+void	check_player_point(t_map *map, size_t i, size_t j, size_t *player_cnt)
 {
-	t_map_grid	*ret;
+	const t_map_data	available = WALL | FIELD;
 
-	ret = ft_malloc(sizeof(t_map_grid), 1);
-	ft_memset(ret, 0, sizeof(t_map_grid));
-	return (ret);
-}
-
-void	del_map_grid(t_map_grid **map_grid)
-{
-	// clear_grid_node(&((*map_grid)->head));
-	// ft_free((void **) map_grid);
+	if (*player_cnt)
+		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
+	*player_cnt |= 1;
+	if (
+		!((map->grid[i - 1][j] & available)
+		&& (map->grid[i + 1][j] & available)
+		&& (map->grid[i][j - 1] & available)
+		&& (map->grid[i][j + 1] & available))
+	)
+		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 }

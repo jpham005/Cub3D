@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:12:05 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/15 22:46:33 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/16 13:35:48 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ struct s_texture
 
 enum e_map_data
 {
-	FIELD = 0,
-	WALL = 1,
-	SPACE = 2,
-	POS_N = 3,
-	POS_S = 4,
-	POS_E = 5,
-	POS_W = 6,
-	END_LINE = 7,
-	WRONG
+	FIELD = 1 << 1,
+	WALL = 1 << 2,
+	SPACE = 1 << 3,
+	POS_N = 1 << 4,
+	POS_S = 1 << 5,
+	POS_E = 1 << 6,
+	POS_W = 1 << 7,
+	END_LINE = 1 << 8,
+	WRONG = 1 << 9,
+	PLAYER = POS_N | POS_S | POS_E | POS_W
 };
 
 struct s_grid_node
