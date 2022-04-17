@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:12:05 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 13:35:48 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:16:07 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ struct s_map
 {
 	t_texture	*texture;
 	int			**grid;
-	size_t		grid_width;
-	size_t		grid_height;
+	size_t		width;
+	size_t		height;
 };
 
 #endif

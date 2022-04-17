@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:45:52 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 13:41:48 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:16:07 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	check_grid(t_map *map)
 
 	player_cnt = 0;
 	i = 0;
-	while (i < map->grid_height)
+	while (i < map->height)
 	{
 		j = 0;
-		while (j < map->grid_width)
+		while (j < map->width)
 			check_valid_grid_point(map, i, j++, &player_cnt);
 		i++;
 	}

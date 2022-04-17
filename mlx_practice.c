@@ -6,12 +6,13 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 13:53:30 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 17:05:55 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/17 16:43:00 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
+#include <math.h>
 #include <stdlib.h>
 
 int	key_press_handler(int keycode, void *param)
@@ -22,49 +23,45 @@ int	key_press_handler(int keycode, void *param)
 	return (0);
 }
 
-typedef struct img_data
+void	practice(t_context *context)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img_data;
-
-void	ft_pixel_put(t_img_data *img_data, size_t x, size_t y, int color)
-{
-	char	*dest;
-
-	dest = img_data->addr + (y * img_data->line_length + x * (img_data->bits_per_pixel / 8));
-	*(unsigned int *) dest = color;
-}
-
-void	practice(t_map *map)
-{
-	void	*mlx;
-	void	*window;
-
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d");
-
 	// ================================================= //
-
-	t_img_data	data;
-	data.img = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
+	// draw celling, floor
 	for (size_t i = 0; i < WINDOW_HEIGHT / 2; i++)
 	{
 		for (size_t j = 0; j < WINDOW_WIDTH; j++)
-			ft_pixel_put(&data, j, i, map->texture->c);
+			ft_pixel_put(context->img, j, i, context->map->texture->c);
 	}
 	for (size_t i = 0; i < WINDOW_HEIGHT / 2; i++)
 	{
 		for (size_t j = 0; j < WINDOW_WIDTH; j++)
-			ft_pixel_put(&data, j, i + WINDOW_HEIGHT / 2, map->texture->f);
+			ft_pixel_put(context->img, j, i + WINDOW_HEIGHT / 2, context->map->texture->f);
 	}
-	mlx_put_image_to_window(mlx, window, data.img, 0, 0);
-
+	mlx_put_image_to_window(context->core->mlx, context->core->window, context->img->img, 0, 0);
 	// ================================================= //
-	mlx_hook(window, 2, 1L << 1, key_press_handler, NULL);
-	mlx_loop(mlx);
+	// cast single ray
+	t_vector	start;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	start.x = (int) context->pos.x;
+	start.y = (int) context->pos.y;
+	side_dist.y = context->pos.y - ((int) context->pos.y);
+	delta_dist.y = 1;
+	double	w;
+	if (context->pos_dir & POS_N)
+	{
+		while (1)
+		{
+			// compare side dist
+			side_dist.y += delta_dist.y;
+			start.y += 1;
+			if (context->map->grid[(int) start.x][(int) start.y] & WALL)
+				w = side_dist.y - delta_dist.y;
+			break ;
+		}
+	}
+	size_t	p = sqrt()
+	// ================================================= //
+	mlx_hook(context->core->window, 2, 1L << 1, key_press_handler, NULL);
+	mlx_loop(context->core->mlx);
 }

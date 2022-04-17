@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 13:33:52 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 13:40:21 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:16:07 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_valid_field_point(t_map *map, size_t i, size_t j)
 void	check_field_point(t_map *map, size_t i, size_t j)
 {
 	if (
-		is_edge_point(map->grid_width, map->grid_height, i, j)
+		is_edge_point(map->width, map->height, i, j)
 		|| !is_valid_field_point(map, i, j)
 	)
 		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);

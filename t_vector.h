@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   t_vector.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 11:52:46 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 13:57:40 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/17 11:38:25 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/17 11:39:47 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
-#include <stdlib.h>
+#ifndef T_VECTOR_H
+# define T_VECTOR_H
 
-void	exit_message(char *err_str, t_exit_status status)
+typedef struct s_vector	t_vector;
+
+struct s_vector
 {
-	ft_putstr_fd(err_str, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(status);
-}
+	double	x;
+	double	y;
+};
 
-void	ft_pixel_put(t_img *img, size_t x, size_t y, int color)
-{
-	char	*dest;
-
-	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *) dest = color;
-}
+#endif

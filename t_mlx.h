@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   t_mlx.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 11:52:46 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 13:57:40 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/17 11:46:25 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/17 13:51:32 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "libft.h"
-#include <stdlib.h>
+#ifndef T_MLX_H
+# define T_MLX_H
 
-void	exit_message(char *err_str, t_exit_status status)
+typedef struct s_mlx_core	t_mlx_core;
+typedef struct s_img		t_img;
+
+struct s_mlx_core
 {
-	ft_putstr_fd(err_str, STDERR_FILENO);
-	ft_putchar_fd('\n', STDERR_FILENO);
-	exit(status);
-}
+	void	*mlx;
+	void	*window;
+};
 
-void	ft_pixel_put(t_img *img, size_t x, size_t y, int color)
+struct s_img
 {
-	char	*dest;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+};
 
-	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *) dest = color;
-}
+#endif

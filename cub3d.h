@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 16:47:56 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:32:20 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,36 @@
 # define CUB3D_H
 
 # include "map.h"
+# include "t_vector.h"
+# include "t_mlx.h"
 
 # define ERR_MESSAGE "Error: "
 # define ARG_ERR_MESSAGE ERR_MESSAGE "Usage: ./cub3d file_path"
 # define MAP_ERR_MESSAGE ERR_MESSAGE "Wrong map file"
+# define MLX_ERR_MESSAGE ERR_MESSAGE "Mlx function error"
 
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
+# define TITLE "Cub3d"
+# define FOV_DIS 0.5
 
-typedef struct s_mlx		t_mlx;
 typedef enum e_exit_status	t_exit_status;
-
-struct s_mlx
-{
-	void	*mlx;
-	void	*mlx_window;
-};
+typedef t_map_data			t_dir;
+typedef struct s_context	t_context;
 
 enum e_exit_status
 {
 	SUCCESS = 0,
 	EXIT_FATAL = 1
+};
+
+struct s_context
+{
+	t_map		*map;
+	t_vector	pos;
+	t_dir		pos_dir;
+	t_mlx_core	*core;
+	t_img		*img;
 };
 
 // parse map
@@ -66,6 +75,9 @@ void		check_player_point(t_map *map, size_t i, size_t j, \
 															size_t *player_cnt);
 
 // struct management
+// t_context
+void		init_context(t_context *context, char *argv);
+
 // t_map
 t_map		*init_map(void);
 
@@ -79,6 +91,7 @@ void		clear_grid_node(t_grid_node **head);
 
 // utils
 void		exit_message(char *err_str, t_exit_status status);
+void		ft_pixel_put(t_img *img, size_t x, size_t y, int color);
 
-void practice(t_map *map);
+void		 practice(t_context *context);
 #endif

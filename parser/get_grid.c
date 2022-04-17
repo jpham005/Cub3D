@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 20:22:56 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 11:20:43 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:16:07 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static void	put_grid_node(int **grid, t_map_grid *map_grid)
 
 static void	convert_grid_list(t_map *map, t_map_grid *map_grid)
 {
-	map->grid_width = map_grid->width;
-	map->grid_height = map_grid->height;
+	map->width = map_grid->width;
+	map->height = map_grid->height;
 	map->grid = ft_malloc(sizeof(int *), map_grid->height);
 	put_grid_node(map->grid, map_grid);
 }
