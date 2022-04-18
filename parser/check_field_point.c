@@ -6,17 +6,19 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 13:33:52 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 14:16:07 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/18 16:50:02 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// 모서리인 경우
 static int	is_edge_point(size_t width, size_t height, size_t i, size_t j)
 {
 	return ((i == 0) || (i == height) || (j == 0) || (j == width));
 }
 
+// 양 옆 위 아래 올 수 있는 타입들
 static int	is_valid_field_point(t_map *map, size_t i, size_t j)
 {
 	const t_map_data	available = FIELD | WALL | PLAYER;
