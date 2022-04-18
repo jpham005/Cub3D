@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 14:32:20 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/19 07:56:35 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 # define WINDOW_HEIGHT 720
 # define TITLE "Cub3d"
 # define FOV_DIS 0.5
+# define MOVE_DIS 0.1
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;
 typedef struct s_context	t_context;
+typedef enum e_keymap		t_keymap;
 
 enum e_exit_status
 {
@@ -44,6 +46,18 @@ struct s_context
 	t_dir		pos_dir;
 	t_mlx_core	*core;
 	t_img		*img;
+};
+
+enum e_keymap
+{
+	KEY_A = 0,
+	KEY_S = 1,
+	KEY_D = 2,
+	KEY_W = 13,
+	KEY_E = 14,
+	KEY_ESC = 53,
+	KEY_L_A = 123,
+	KEY_R_A = 124
 };
 
 // parse map
