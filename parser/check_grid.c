@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:45:52 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/18 16:49:31 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/19 12:51:09 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_map 검사
 
 과정
 1. 가로, 세로 길이만큼 순회하며 모든 점 검사
+2. 플레이어 없으면 에러
 */
 void	check_grid(t_map *map)
 {
@@ -49,4 +50,6 @@ void	check_grid(t_map *map)
 			check_valid_grid_point(map, i, j++, &player_cnt);
 		i++;
 	}
+	if (player_cnt != 1)
+		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 }

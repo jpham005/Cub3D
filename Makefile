@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/17 12:02:11 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/19 14:56:27 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ STRUCT_DIR			:=	./
 STRUCT_SRCS			:=	t_map_manage.c t_mlx_manage.c
 STRUCT_SRCS			:=	$(addprefix $(STRUCT_DIR)/, $(STRUCT_SRCS))
 
-SRCS				:=	main.c utils.c $(STRUCT_SRCS) $(PARSER_SRCS) mlx_practice.c
+SRCS				:=	main.c utils.c $(STRUCT_SRCS) $(PARSER_SRCS) mlx_practice.c key_press_handler.c
 OBJS				:=	$(SRCS:.c=.o)
 
 INCLUDE				:=	.

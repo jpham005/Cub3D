@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 11:51:45 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 14:36:48 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/19 14:51:30 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,6 @@ void	init_context(t_context *context, char *argv)
 	find_pos(context);
 	context->core = init_mlx();
 	context->img = init_img(context->core);
+	context->move_info.move_dir = 0;
+	context->move_info.rot_dir = 0;
 }
