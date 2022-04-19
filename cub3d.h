@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 15:16:27 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/19 19:23:52 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define TITLE "Cub3d"
 # define FOV_DIS 0.5
 # define MOVE_DIS 0.1
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;

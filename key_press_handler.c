@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:31:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 15:18:49 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/19 15:45:27 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,46 @@ static t_dir	shift_pos_dir(t_dir curr, t_rotate_dir dir)
 	return (curr);
 }
 
-static t_dir	handle_move_keycode(int keycode, t_context *context)
+int	is_valid_point(double x, double y, t_map *map)
 {
+	return (
+		x >= 0
+		&& x + 0.1 < map->width
+		&& x - 0.1 > 0
+		&& y >= 0
+		&& y + 0.1 < map->height
+		&& y - 0.1 > 0
+		&& !(map->grid[(int) (y + 0.1)][(int) (x + 0.1)] & WALL)
+		&& !(map->grid[(int) (y - 0.1)][(int) (x - 0.1)] & WALL)
+	);
+}
+
+void	move_pos(t_dir dir, t_context *context)
+{
+	if ((dir & POS_N) && is_valid_point(context->pos.x, context->pos.y - MOVE_DIS, context->map))
+		context->pos.y -= MOVE_DIS;
+	if ((dir & POS_W) && is_valid_point(context->pos.x - MOVE_DIS, context->pos.y, context->map))
+		context->pos.x -= MOVE_DIS;
+	if ((dir & POS_S) && is_valid_point(context->pos.x, context->pos.y + MOVE_DIS, context->map))
+		context->pos.y += MOVE_DIS;
+	if ((dir & POS_E) && is_valid_point(context->pos.x + MOVE_DIS, context->pos.y, context->map))
+		context->pos.x += MOVE_DIS;
+}
+
+static void	handle_move_keycode(int keycode, t_context *context)
+{
+	t_dir	dir;
+
+	dir = 0;
 	if (keycode == KEY_A)
-		return (shift_pos_dir(context->pos_dir, LEFT));
+		dir |= (shift_pos_dir(context->pos_dir, LEFT));
 	if (keycode == KEY_D)
-		return (shift_pos_dir(context->pos_dir, RIGHT));
+		dir |= (shift_pos_dir(context->pos_dir, RIGHT));
 	if (keycode == KEY_W)
-		return (context->pos_dir);
+		dir |= (context->pos_dir);
 	if (keycode == KEY_S)
-		return (shift_pos_dir(shift_pos_dir(context->pos_dir, RIGHT), RIGHT));
-	return (0);
+		dir |= (shift_pos_dir(shift_pos_dir(context->pos_dir, RIGHT), RIGHT));
+	move_pos(dir, context);
 }
 
 static t_rotate_dir	handle_turn_keycode(int keycode, t_context *context)
@@ -72,7 +101,6 @@ static t_rotate_dir	handle_turn_keycode(int keycode, t_context *context)
 		if (!(context->pos_dir & PLAYER))
 			context->pos_dir = POS_E;
 	}
-	redraw(context);
 	return (0);
 }
 
@@ -84,18 +112,9 @@ int	key_press_handler(int keycode, void *param)
 	if (keycode == KEY_ESC)
 		exit(0);
 	if (is_move_keycode(keycode))
-		context->move_dir |= handle_move_keycode(keycode, context);
+		handle_move_keycode(keycode, context);
 	if (is_turn_keycode(keycode))
 		handle_turn_keycode(keycode, context);
-	return (0);
-}
-
-int	key_release_handler(int keycode, void *param)
-{
-	t_context *context;
-
-	context = (t_context *) param;
-	if (is_move_keycode(keycode))
-		context->move_dir &= ~handle_move_keycode(keycode, context);
+	redraw(context);
 	return (0);
 }
