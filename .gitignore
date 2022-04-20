@@ -8,3 +8,4 @@ test.c
 cub3d
 *.swiftdoc
 *.swiftmodule
+a.out.DSYM

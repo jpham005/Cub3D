@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 19:23:52 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/20 19:56:27 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_context	t_context;
 typedef enum e_keymap		t_keymap;
 typedef enum e_rotate_dir	t_rotate_dir;
 typedef struct s_move_info	t_move_info;
+typedef enum e_texture_dir	t_texture_dir;
 
 enum e_exit_status
 {
@@ -69,6 +70,15 @@ struct s_context
 	t_mlx_core	*core;
 	t_img		*img;
 	t_dir		move_dir;
+	int			*texture[4];
+};
+
+enum e_texture_dir
+{
+	TEX_NORTH = 0,
+	TEX_WEST,
+	TEX_SOUTH,
+	TEX_EAST
 };
 
 // parse map
@@ -91,6 +101,9 @@ t_map_grid	*get_grid_list(int map_file);
 
 //check grid
 void		check_grid(t_map *map);
+
+// load img
+int			*load_img(t_context *context, t_texture_dir dir);
 
 // check field point
 void		check_field_point(t_map *map, size_t i, size_t j);
@@ -122,6 +135,7 @@ void		clear_grid_node(t_grid_node **head);
 // utils
 void		exit_message(char *err_str, t_exit_status status);
 void		ft_pixel_put(t_img *img, size_t x, size_t y, int color);
+void		ft_get_data_addr(t_img *img);
 
 void		 practice(t_context *context);
 #endif

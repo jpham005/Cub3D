@@ -6,12 +6,13 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:52:46 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 13:57:40 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/20 19:35:33 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
+#include "mlx.h"
 #include <stdlib.h>
 
 void	exit_message(char *err_str, t_exit_status status)
@@ -27,4 +28,11 @@ void	ft_pixel_put(t_img *img, size_t x, size_t y, int color)
 
 	dest = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dest = color;
+}
+
+void	ft_get_data_addr(t_img *img)
+{
+	img->addr = mlx_get_data_addr(
+		img->img, &(img->bits_per_pixel), &(img->line_length), &(img->endian)
+		);
 }

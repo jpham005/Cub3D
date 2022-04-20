@@ -6,37 +6,13 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 11:51:45 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 15:43:43 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/20 19:53:10 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
 #include "mlx.h"
-#include <stdio.h>
-void	test_print(t_map *map)
-{
-	int i = 0, j = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			if (map->grid[i][j] == SPACE)
-				printf(" ");
-			else if (map->grid[i][j] == WALL)
-				printf("%d", 1);
-			else if (map->grid[i][j] & PLAYER)
-				printf("P");
-			else if (map->grid[i][j] & FIELD)
-				printf("0");
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	while (1);
-}
 
 static t_img	*init_img(t_mlx_core *core)
 {
@@ -91,7 +67,6 @@ void	init_context(t_context *context, char *argv)
 {
 	context->map = init_map();
 	parse_map(context->map, argv);
-	// test_print(context->map);
 	find_pos(context);
 	context->core = init_mlx();
 	context->img = init_img(context->core);

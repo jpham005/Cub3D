@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 13:53:30 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 22:35:14 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/20 19:29:00 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <stdio.h>
-
-void	draw_base(t_context *context)
-{
-	for (size_t i = 0; i < WINDOW_HEIGHT / 2; i++)
-	{
-		for (size_t j = 0; j < WINDOW_WIDTH; j++)
-			ft_pixel_put(context->img, j, i, context->map->texture->c);
-	}
-	for (size_t i = 0; i < WINDOW_HEIGHT / 2; i++)
-	{
-		for (size_t j = 0; j < WINDOW_WIDTH; j++)
-			ft_pixel_put(context->img, j, i + WINDOW_HEIGHT / 2, context->map->texture->f);
-	}
-}
 
 void	set_dir_vector(t_vector *dir, t_map_data pos_dir)
 {
@@ -108,44 +94,25 @@ void	set_side_dist(t_vector *side, t_vector *step, t_vector *ray, t_vector *delt
 	}
 }
 
-int	*load_img(t_context *context)
-{
-	t_img	img;
-	int		width;
-	int		height;
-	int		*ret;
-
-	img.img = mlx_xpm_file_to_image(context->core->mlx, context->map->texture->no, &width, &height);
-	img.addr = mlx_get_data_addr(img.img, &(img.bits_per_pixel), &(img.line_length), &(img.endian));
-	ret = ft_malloc(sizeof(int), width * height);
-	for (int y = 0; y < height; y++)
-	{
-		for (int x = 0; x < width; x++)
-		{
-			ret[width * y + x] = img.addr[width * y + x];
-		}
-	}
-	int temp;
-	for (int i = 0; i < 64; i++)
-	{
-		for (int j = 0; j < 64; j++)
-		{
-			for (int k = 0; k < 3; k++)
-			{
-				temp = ret[width * i + j];
-				printf("%x %x %x\n", (temp >> 16) & 255, (temp >> 8) & 255, temp & 255);
-			}
-		}
-	}
-	mlx_destroy_image(context->core->mlx, img.img);
-	return (ret);
-}
-
 void	cast_ray(t_context *context)
 {
-	int	*texture = load_img(context);
-	unsigned int	buffer[WINDOW_HEIGHT][WINDOW_WIDTH];
-	ft_memset(buffer, 0, WINDOW_HEIGHT * WINDOW_WIDTH);
+	int	*texture[4];
+	texture[TEX_NORTH] = load_img(context, TEX_NORTH);
+	texture[TEX_WEST] = load_img(context, TEX_WEST);
+	texture[TEX_SOUTH] = load_img(context, TEX_SOUTH);
+	texture[TEX_EAST] = load_img(context, TEX_EAST);
+	int	buffer[WINDOW_HEIGHT][WINDOW_WIDTH];
+	// adding celling, floor
+	for (int i = 0; i < WINDOW_HEIGHT; i++)
+	{
+		for (int j = 0; j < WINDOW_WIDTH; j++)
+		{
+			if (i < WINDOW_HEIGHT / 2)
+				buffer[i][j] = context->map->texture->c;
+			else
+				buffer[i][j] = context->map->texture->f;
+		}
+	}
 	t_vector	pos;
 	t_vector	dir;
 	t_vector	plane;
@@ -231,20 +198,39 @@ void	cast_ray(t_context *context)
 		{
 			// ft_pixel_put(context->img, x, i, 0xff00ff);
 			int	texY;
+			double start_i = 
 
 			texY = (int) tex_pos & (TEX_HEIGHT - 1);
 			tex_pos += stepstep;
-			int color = texture[TEX_HEIGHT * texY + texX];
+
+			int	*curr_texture;
+			if (hit_side == 0)
+			{
+				if (pos.x < map.x)
+					curr_texture = texture[TEX_EAST];
+				else
+					curr_texture = texture[TEX_WEST];
+			}
+			if (hit_side == 1)
+			{
+				if (pos.y < map.y)
+					curr_texture = texture[TEX_NORTH];
+				else
+					curr_texture = texture[TEX_SOUTH];
+			}
+
+			int color = curr_texture[TEX_HEIGHT * texY + texX];
 			if (hit_side == 1)
 				color = (color >> 1) & 0x7f7f7f;
-			buffer[i][x] = 0xffaaff;
+			buffer[i][x] = color;
 		}
 	}
 	for (int i = 0; i < WINDOW_HEIGHT; i++)
 	{
 		for (int j = 0; j < WINDOW_WIDTH; j++)
 		{
-			context->img->addr[i * WINDOW_WIDTH + j] = buffer[i][j];
+			ft_pixel_put(context->img, j, i, buffer[i][j]);
+			// context->img->addr[i * WINDOW_WIDTH + j] = buffer[i][j];
 		}
 	}
 	mlx_put_image_to_window(context->core->mlx, context->core->window, context->img->img, 0, 0);
@@ -255,7 +241,6 @@ void	redraw(t_context *context)
 	mlx_destroy_image(context->core->mlx, context->img->img);
 	context->img->img = mlx_new_image(context->core->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	context->img->addr = mlx_get_data_addr(context->img->img, &(context->img->bits_per_pixel), &(context->img->line_length), &(context->img->endian));
-	draw_base(context);
 	cast_ray(context);
 	mlx_clear_window(context->core->mlx, context->core->window);
 	mlx_put_image_to_window(context->core->mlx, context->core->window, context->img->img, 0, 0);
@@ -263,9 +248,6 @@ void	redraw(t_context *context)
 
 void	practice(t_context *context)
 {
-	// ================================================= //
-	// draw celling, floor
-	draw_base(context);
 	// ================================================= //
 	// cast single ray
 	cast_ray(context);

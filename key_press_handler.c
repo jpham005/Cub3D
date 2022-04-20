@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:31:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 15:45:27 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/20 16:27:57 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,13 @@ int	is_valid_point(double x, double y, t_map *map)
 		&& y >= 0
 		&& y + 0.1 < map->height
 		&& y - 0.1 > 0
+		&& !(map->grid[(int) y][(int) (x + 0.1)] & WALL)
+		&& !(map->grid[(int) y][(int) (x - 0.1)] & WALL)
+		&& !(map->grid[(int) (y + 0.1)][(int) x] & WALL)
+		&& !(map->grid[(int) (y - 0.1)][(int) x] & WALL)
 		&& !(map->grid[(int) (y + 0.1)][(int) (x + 0.1)] & WALL)
+		&& !(map->grid[(int) (y + 0.1)][(int) (x - 0.1)] & WALL)
+		&& !(map->grid[(int) (y - 0.1)][(int) (x + 0.1)] & WALL)
 		&& !(map->grid[(int) (y - 0.1)][(int) (x - 0.1)] & WALL)
 	);
 }

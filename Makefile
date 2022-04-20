@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/19 14:56:27 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/20 19:38:02 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ STRUCT_DIR			:=	./
 STRUCT_SRCS			:=	t_map_manage.c t_mlx_manage.c
 STRUCT_SRCS			:=	$(addprefix $(STRUCT_DIR)/, $(STRUCT_SRCS))
 
-SRCS				:=	main.c utils.c $(STRUCT_SRCS) $(PARSER_SRCS) mlx_practice.c key_press_handler.c
+SRCS				:=	main.c utils.c $(STRUCT_SRCS) $(PARSER_SRCS) mlx_practice.c key_press_handler.c load_img.c
 OBJS				:=	$(SRCS:.c=.o)
 
 INCLUDE				:=	.
@@ -40,7 +40,7 @@ INCLUDE_FILES		:=	cub3d.h map.h
 INCLUDE_FILES		:=	$(addprefix $(INCLUDE)/, $(INCLUDE_FILES))
 
 CC					:=	cc
-CFLAGS				:=	-g#-Wall -Wextra -Werror -g #fsanitize=address
+CFLAGS				:=	-g #-fsanitize=address #-Wall -Wextra -Werror
 RM					:=	rm -f
 
 .PHONY				:	all
@@ -69,7 +69,7 @@ clean				:
 fclean				:	clean
 	$(RM) $(NAME) $(LIBMLX)
 	make -C $(LIBFT_DIR) fclean
-	make -C $(LIBMLX_DIR) clean
+#	make -C $(LIBMLX_DIR) clean
 
 .PHONY				:	re
 re					:	fclean all
