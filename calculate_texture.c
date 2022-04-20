@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_texture.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/20 21:10:13 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/20 23:10:22 by jaham            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+#include <math.h>
+
+void	calculate_wall_x(t_cast_info *info)
+{
+	if (info->hit_side == X_SIDE)
+	{
+		info->perp = (info->map.x - info->pos.x + (1 - info->step.x) / 2) \
+																 / info->ray.x;
+		info->wall.x = info->pos.y + info->perp * info->ray.y;
+	}
+	else
+	{
+		info->perp = (info->map.y - info->pos.y + (1 - info->step.y) / 2) \
+																/ info->ray.y;
+		info->wall.x = info->pos.x + info->perp * info->ray.x;
+	}
+	info->wall.x -= floor(info->wall.x);
+}
+
+void	set_tex_x(t_cast_info *info)
+{
+	info->tex_x = (int) (info->wall.x * (double) TEX_WIDTH);
+	if (is_flipped)
+		info->tex_x = (TEX_WIDTH - 1) - info->tex_x;
+}
+
+void	set_draw_line(t_cast_info *info)
+{
+	info->line_len = (int) (WINDOW_HEIGHT / info->perp);
+	info->draw_start = -(info->line_len) / 2 + WINDOW_HEIGHT / 2;
+	if (info->draw_start < 0)
+		info->draw_start = 0;
+	info->draw_end = info->line_len / 2 + WINDOW_HEIGHT / 2;
+	if (info->draw_end >= WINDOW_HEIGHT)
+		info->draw_end = WINDOW_HEIGHT - 1;
+	info->tex_step = 1.0 * TEX_HEIGHT / info->line_len;
+	info->tex_pos = (info->draw_start - WINDOW_HEIGHT / 2 + \
+										info->line_len / 2) * info->tex_step;
+}
+
+void	calculate_texture(t_cast_info *info)
+{
+	calculate_wall_x(info);
+	set_tex_x(info);
+	set_draw_line(info);
+	
+}

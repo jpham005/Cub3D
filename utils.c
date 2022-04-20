@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:52:46 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/20 19:35:33 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/20 20:49:41 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ void	ft_get_data_addr(t_img *img)
 	img->addr = mlx_get_data_addr(
 		img->img, &(img->bits_per_pixel), &(img->line_length), &(img->endian)
 		);
+}
+
+void	init_vector(t_vector *vector, double x, double y)
+{
+	vector->x = x;
+	vector->y = y;
 }
