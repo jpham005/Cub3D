@@ -6,11 +6,12 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:54:23 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/20 21:00:49 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 13:33:59 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 void	set_delta_dist(t_cast_info *info)
 {

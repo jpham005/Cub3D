@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_vector.h                                         :+:      :+:    :+:   */
+/*   handle_turn_keycode.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/17 11:38:25 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/17 11:39:47 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/21 15:21:39 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/21 15:21:50 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef T_VECTOR_H
-# define T_VECTOR_H
+#include "cub3d.h"
 
-typedef struct s_vector	t_vector;
-
-struct s_vector
+t_rotate_dir	handle_turn_keycode(int keycode, t_context *context)
 {
-	double	x;
-	double	y;
-};
-
-#endif
+	if (keycode == KEY_L_A)
+	{
+		context->pos_dir <<= 1;
+		if (!(context->pos_dir & PLAYER))
+			context->pos_dir = POS_N;
+	}
+	if (keycode == KEY_R_A)
+	{
+		context->pos_dir >>= 1;
+		if (!(context->pos_dir & PLAYER))
+			context->pos_dir = POS_E;
+	}
+	return (0);
+}

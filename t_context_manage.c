@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:11:48 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/20 20:13:09 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 15:16:24 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	set_img_texture(t_context *context)
 	context->texture[TEX_WEST] = load_img(context, TEX_WEST);
 	context->texture[TEX_SOUTH] = load_img(context, TEX_SOUTH);
 	context->texture[TEX_EAST] = load_img(context, TEX_EAST);
-	
 }
 
 static void	find_pos(t_context *context)
@@ -49,8 +48,8 @@ void	init_context(t_context *context, char *argv)
 {
 	context->map = init_map();
 	parse_map(context->map, argv);
-	set_img_texture(context);
 	find_pos(context);
 	context->core = init_mlx();
 	context->img = init_img(context->core);
+	set_img_texture(context);
 }

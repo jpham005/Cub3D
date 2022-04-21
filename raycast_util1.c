@@ -6,13 +6,15 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:21:50 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/20 20:50:29 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 13:32:27 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_buffer_default(int **buffer, t_texture *texture)
+void	set_buffer_default(
+	int buffer[WINDOW_HEIGHT][WINDOW_WIDTH], t_texture *texture
+)
 {
 	int	x;
 	int	y;

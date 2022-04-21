@@ -1,7 +1,6 @@
 .DS_Store
 a.out
 *.dylib
-*.cub
 test.c
 *.a
 *.o

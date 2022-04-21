@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 19:21:40 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/20 19:55:17 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 15:18:24 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,17 @@ static t_img	*choose_img(
 
 	img = ft_malloc(sizeof(t_img), 1);
 	if (dir == TEX_NORTH)
-		img->img = mlx_xpm_file_to_image(
-			context->core->mlx, context->map->texture->no, width, height
-			);
+		img->img = mlx_xpm_file_to_image(context->core->mlx, \
+									context->map->texture->no, width, height);
 	if (dir == TEX_WEST)
-		img->img = mlx_xpm_file_to_image(
-			context->core->mlx, context->map->texture->we, width, height
-			);
+		img->img = mlx_xpm_file_to_image(context->core->mlx, \
+									context->map->texture->we, width, height);
 	if (dir == TEX_SOUTH)
-		img->img = mlx_xpm_file_to_image(
-			context->core->mlx, context->map->texture->so, width, height
-			);
+		img->img = mlx_xpm_file_to_image(context->core->mlx, \
+									context->map->texture->so, width, height);
 	if (dir == TEX_EAST)
-		img->img = mlx_xpm_file_to_image(
-			context->core->mlx, context->map->texture->ea, width, height
-			);
+		img->img = mlx_xpm_file_to_image(context->core->mlx, \
+									context->map->texture->ea, width, height);
 	return (img);
 }
 
@@ -51,7 +47,7 @@ static void	set_texture_buffer(int *ret, int width, int height, t_img *img)
 		x = 0;
 		while (x < width)
 		{
-			ret[width * y + x] = ((int *) (img->addr))[y * width + x];
+			ret[width * y + x] = ((int *)(img->addr))[y * width + x];
 			++x;
 		}
 		++y;

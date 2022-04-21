@@ -6,12 +6,11 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/20 20:14:32 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/21 15:29:37 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				:=	cub3d
-
 
 LIBFT_DIR			:=	libft
 LIBFT_INCLUDE		:=	$(LIBFT_DIR)
@@ -29,11 +28,22 @@ PARSER_SRCS			:=	check_field_point.c check_grid.c check_player_point.c \
 PARSER_SRCS			:=	$(addprefix $(PARSER_DIR)/, $(PARSER_SRCS))
 
 STRUCT_DIR			:=	./
-STRUCT_SRCS			:=	t_map_manage.c t_mlx_manage.c
+STRUCT_SRCS			:=	t_map_manage.c t_mlx_manage.c t_context_manage.c \
+						load_img.c
 STRUCT_SRCS			:=	$(addprefix $(STRUCT_DIR)/, $(STRUCT_SRCS))
 
+RAYCAST_DIR			:=	./
+RAYCAST_SRCS		:=	raycast.c raycast_util1.c raycast_util2.c \
+						raycast_util3.c calculate_texture.c
+RAYCAST_SRCS		:=	$(addprefix $(RAYCAST_DIR)/, $(RAYCAST_SRCS))
+
+MLX_EVENT_DIR		:=	./
+MLX_EVENT_SRCS		:=	key_press_handler.c handle_move_keycode.c \
+						handle_turn_keycode.c
+MLX_EVENT_SRCS		:=	$(addprefix $(MLX_EVENT_DIR)/, $(MLX_EVENT_SRCS))
+
 SRCS				:=	main.c utils.c $(STRUCT_SRCS) $(PARSER_SRCS) \
-	mlx_practice.c key_press_handler.c load_img.c t_context_manage.c
+						$(MLX_EVENT_SRCS) $(RAYCAST_SRCS)
 OBJS				:=	$(SRCS:.c=.o)
 
 INCLUDE				:=	.
@@ -41,7 +51,7 @@ INCLUDE_FILES		:=	cub3d.h map.h
 INCLUDE_FILES		:=	$(addprefix $(INCLUDE)/, $(INCLUDE_FILES))
 
 CC					:=	cc
-CFLAGS				:=	-g #-fsanitize=address #-Wall -Wextra -Werror
+CFLAGS				:=	-g -Wall -Wextra -Werror
 RM					:=	rm -f
 
 .PHONY				:	all
@@ -70,7 +80,7 @@ clean				:
 fclean				:	clean
 	$(RM) $(NAME) $(LIBMLX)
 	make -C $(LIBFT_DIR) fclean
-#	make -C $(LIBMLX_DIR) clean
+	make -C $(LIBMLX_DIR) clean
 
 .PHONY				:	re
 re					:	fclean all

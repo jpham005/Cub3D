@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 11:51:45 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/20 20:15:45 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 13:40:34 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_img	*init_img(t_mlx_core *core)
 
 	ret = ft_malloc(sizeof(t_img), 1);
 	ret->img = mlx_new_image(core->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	ft_get_data_addr(ret->img);
+	ret->addr = mlx_get_data_addr(ret->img, &(ret->bits_per_pixel), \
+										&(ret->line_length), &(ret->endian));
 	return (ret);
 }
 
