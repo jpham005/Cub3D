@@ -6,11 +6,12 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:11:48 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:16:24 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 15:33:08 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
 static void	set_img_texture(t_context *context)
 {
@@ -42,6 +43,15 @@ static void	find_pos(t_context *context)
 		}
 		++i;
 	}
+}
+
+static t_map	*init_map(void)
+{
+	t_map	*ret;
+
+	ret = ft_malloc(sizeof(t_map), 1);
+	ft_memset(ret, 0, sizeof(t_map));
+	return (ret);
 }
 
 void	init_context(t_context *context, char *argv)

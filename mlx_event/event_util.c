@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_press_handler.c                                :+:      :+:    :+:   */
+/*   event_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 14:31:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:28:42 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/21 15:57:47 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/21 16:00:51 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
-#include <stdlib.h>
 
-static int	is_move_keycode(int keycode)
+int	is_move_keycode(int keycode)
 {
 	return (
 		(keycode == KEY_A)
@@ -24,12 +23,17 @@ static int	is_move_keycode(int keycode)
 	);
 }
 
-static int	is_turn_keycode(int keycode)
+int	is_turn_keycode(int keycode)
 {
-	return ((keycode == KEY_L_A) || (keycode == KEY_R_A));
+	return (
+		(keycode == KEY_L_A)
+		|| (keycode == KEY_R_A)
+		|| (keycode == MOUSE_L)
+		|| (keycode == MOUSE_R)
+	);
 }
 
-static void	redraw(t_context *context)
+void	redraw(t_context *context)
 {
 	mlx_destroy_image(context->core->mlx, context->img->img);
 	context->img->img = \
@@ -39,19 +43,4 @@ static void	redraw(t_context *context)
 	mlx_clear_window(context->core->mlx, context->core->window);
 	mlx_put_image_to_window(context->core->mlx, \
 								context->core->window, context->img->img, 0, 0);
-}
-
-int	key_press_handler(int keycode, void *param)
-{
-	t_context	*context;
-
-	context = (t_context *) param;
-	if (keycode == KEY_ESC)
-		exit(0);
-	if (is_move_keycode(keycode))
-		handle_move_keycode(keycode, context);
-	if (is_turn_keycode(keycode))
-		handle_turn_keycode(keycode, context);
-	redraw(context);
-	return (0);
 }

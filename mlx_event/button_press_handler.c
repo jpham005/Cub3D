@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_mlx.c                                       :+:      :+:    :+:   */
+/*   button_press_handler.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 20:04:43 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:16:33 by jaham            ###   ########.fr       */
+/*   Created: 2022/04/21 15:44:24 by jaham             #+#    #+#             */
+/*   Updated: 2022/04/21 22:58:57 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
-#include "mlx.h"
-#include <stdlib.h>
 
-int	init_mlx(t_mlx *mlx)
+int	button_press_handler(int keycode, int x, int y, t_context *context)
 {
-	mlx = ft_malloc(sizeof(t_mlx), 1);
-	mlx->mlx = mlx_init();
-	if (!mlx->mlx)
-		exit(FATAL);
-	mlx->mlx_window = mlx_new_window(mlx->mlx, 1920, 1080, "cub3d");
-	if (!mlx->mlx_window)
-		exit(FATAL);
+	(void) x;
+	(void) y;
+	if (is_turn_keycode(keycode))
+		handle_turn_keycode(keycode, context);
+	redraw(context);
+	return (0);
 }

@@ -6,6 +6,7 @@
 		"__hash_table": "c",
 		"functional": "c",
 		"type_traits": "c",
-		"t_mlx.h": "c"
+		"t_mlx.h": "c",
+		"map.h": "c"
 	}
 }

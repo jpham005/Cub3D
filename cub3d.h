@@ -6,20 +6,20 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:25:43 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/21 23:10:46 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "event_macro.h"
 # include "map.h"
 # include "t_mlx.h"
 
-# define ERR_MESSAGE "Error: "
-# define ARG_ERR_MESSAGE ERR_MESSAGE "Usage: ./cub3d file_path"
-# define MAP_ERR_MESSAGE ERR_MESSAGE "Wrong map file"
-# define MLX_ERR_MESSAGE ERR_MESSAGE "Mlx function error"
+# define ARG_ERR_MESSAGE "Error: Usage: ./cub3d file_path"
+# define MAP_ERR_MESSAGE "Error: Wrong map file"
+# define MLX_ERR_MESSAGE "Error: Mlx function error"
 
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
@@ -28,12 +28,12 @@
 # define MOVE_DIS 0.1
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
+# define MINIMAP_WIDTH 100
+# define MINIMAP_HEIGHT 100
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;
 typedef struct s_context	t_context;
-typedef enum e_keymap		t_keymap;
-typedef enum e_rotate_dir	t_rotate_dir;
 typedef struct s_move_info	t_move_info;
 typedef enum e_texture_dir	t_texture_dir;
 typedef struct s_cast_info	t_cast_info;
@@ -52,24 +52,6 @@ enum e_exit_status
 	EXIT_FATAL = 1
 };
 
-enum e_keymap
-{
-	KEY_A = 0,
-	KEY_S = 1,
-	KEY_D = 2,
-	KEY_W = 13,
-	KEY_E = 14,
-	KEY_ESC = 53,
-	KEY_L_A = 123,
-	KEY_R_A = 124
-};
-
-enum e_rotate_dir
-{
-	LEFT = 1,
-	RIGHT = 2
-};
-
 struct s_context
 {
 	t_map		*map;
@@ -77,6 +59,7 @@ struct s_context
 	t_dir		pos_dir;
 	t_mlx_core	*core;
 	t_img		*img;
+	t_img		*minimap;
 	t_dir		move_dir;
 	int			*texture[4];
 };
@@ -166,14 +149,23 @@ void			set_ray_vector(t_cast_info *info);
 void			set_delta_dist(t_cast_info *info);
 void			set_side_dist(t_cast_info *info);
 
-// mlx event handler
-int				key_press_handler(int keycode, void *param);
+// keypress handler
+int				key_press_handler(int keycode, t_context *param);
+
+// button press handler
+int				button_press_handler(int keycode, \
+											int x, int y, t_context *context);
 
 // handle turn keycode
-t_rotate_dir	handle_turn_keycode(int keycode, t_context *context);
+void			handle_turn_keycode(int keycode, t_context *context);
 
 // handle move keycode
 void			handle_move_keycode(int keycode, t_context *context);
+
+// event util
+int				is_move_keycode(int keycode);
+int				is_turn_keycode(int keycode);
+void			redraw(t_context *context);
 
 // struct management
 // t_context
@@ -182,9 +174,6 @@ void			init_context(t_context *context, char *argv);
 // mlx
 t_mlx_core		*init_mlx(void);
 t_img			*init_img(t_mlx_core *core);
-
-// t_map
-t_map			*init_map(void);
 
 // t_map_grid
 t_map_grid		*init_map_grid(void);
