@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 15:47:24 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/22 17:38:36 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 03:05:20 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_minimap_color(
 )
 {
 	if (is_outrange(context, minimap))
-		return (0xFFFFFF);
+		return (0x000000);
 	if (context->map->grid[minimap->curr_y][minimap->curr_x] & (FIELD | PLAYER))
 		return (0xFFFFFF);
 	return (0x000000);

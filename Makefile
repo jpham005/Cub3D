@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/22 17:05:17 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/23 02:51:04 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ INCLUDE_FILES		:= cub3d.h map.h
 INCLUDE_FILES		:= $(addprefix $(INCLUDE)/, $(INCLUDE_FILES))
 
 CC					:= cc
-CFLAGS				:= -g -Wall -Wextra -Werror
+CFLAGS				:= -g #-Wall -Wextra -Werror
 RM					:= rm -f
 
 .PHONY				: all

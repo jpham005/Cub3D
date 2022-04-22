@@ -7,4 +7,5 @@ test.c
 cub3d
 *.swiftdoc
 *.swiftmodule
+*.swiftsourceinfo
 a.out.DSYM
