@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/21 22:59:07 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/22 17:05:17 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,12 @@ MLX_EVENT_SRCS		:= key_press_handler.c handle_move_keycode.c \
 					   event_util.c
 MLX_EVENT_SRCS		:= $(addprefix $(MLX_EVENT_DIR)/, $(MLX_EVENT_SRCS))
 
+MINIMAP_DIR			:= minimap
+MINIMAP_SRCS		:= minimap.c draw_minimap_wall.c minimap_util.c
+MINIMAP_SRCS		:= $(addprefix $(MINIMAP_DIR)/, $(MINIMAP_SRCS))
+
 SRCS				:= main.c utils.c $(STRUCT_MANAGE_SRCS) $(PARSER_SRCS) \
-					   $(MLX_EVENT_SRCS) $(RAYCAST_SRCS)
+					   $(MLX_EVENT_SRCS) $(RAYCAST_SRCS) $(MINIMAP_SRCS)
 OBJS				:= $(SRCS:.c=.o)
 
 INCLUDE				:= .
@@ -80,7 +84,7 @@ clean				:
 fclean				: clean
 	$(RM) $(NAME) $(LIBMLX)
 	make -C $(LIBFT_DIR) fclean
-	make -C $(LIBMLX_DIR) clean
+	# make -C $(LIBMLX_DIR) clean
 
 .PHONY				: re
-re					:	fclean all
+re					: fclean all

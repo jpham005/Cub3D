@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 23:10:46 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/22 17:04:58 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define MOVE_DIS 0.1
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
-# define MINIMAP_WIDTH 100
-# define MINIMAP_HEIGHT 100
+# define MINIMAP_WIDTH 250
+# define MINIMAP_HEIGHT 250
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;
@@ -39,6 +39,7 @@ typedef enum e_texture_dir	t_texture_dir;
 typedef struct s_cast_info	t_cast_info;
 typedef enum e_hit_side		t_hit_side;
 typedef struct s_vector		t_vector;
+typedef struct s_minimap	t_minimap;
 
 struct s_vector
 {
@@ -101,6 +102,17 @@ struct s_cast_info
 	int			tex_y;
 	double		tex_step;
 	double		tex_pos;
+};
+
+struct s_minimap
+{
+	int			step_x;
+	int			step_y;
+	int			curr_step_x;
+	int			curr_step_y;
+	size_t		curr_x;
+	size_t		curr_y;
+	t_vector	pos;
 };
 
 // parse map
@@ -189,5 +201,15 @@ void			ft_pixel_put(t_img *img, size_t x, size_t y, int color);
 void			ft_get_data_addr(t_img *img);
 void			init_vector(t_vector *vector, double x, double y);
 int				is_flipped(t_cast_info *info);
+
+// draw minimap
+void			draw_minimap(t_context *context);
+
+// draw minimap wall
+void			draw_minimap_wall(t_context *context, t_minimap *minimap);
+
+// minimap util
+int				is_outrange(t_context *context, t_minimap *minimap);
+void			set_step_xy(t_context *context, t_minimap *minimap);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:57:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 16:00:51 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/22 15:40:13 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void	redraw(t_context *context)
 	mlx_clear_window(context->core->mlx, context->core->window);
 	mlx_put_image_to_window(context->core->mlx, \
 								context->core->window, context->img->img, 0, 0);
+	draw_minimap(context);
 }

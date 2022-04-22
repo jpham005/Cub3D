@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:12:05 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 13:16:03 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/22 15:48:24 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ enum e_map_data
 	POS_E = 1 << 7,
 	END_LINE = 1 << 8,
 	WRONG = 1 << 9,
+	DOOR = 1 << 10,
 	PLAYER = POS_N | POS_S | POS_E | POS_W
 };
 
