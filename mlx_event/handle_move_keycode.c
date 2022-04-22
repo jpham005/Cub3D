@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:24:09 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:28:17 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 03:39:27 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static t_dir	shift_pos_dir(t_dir curr, t_rotate_dir dir)
 
 static int	is_valid_point(double x, double y, t_map *map)
 {
+	const t_map_data	invalid = WALL | DOOR_CLOSED;
+
 	return (
 		x >= 0
 		&& x + 0.1 < map->width
@@ -38,14 +40,14 @@ static int	is_valid_point(double x, double y, t_map *map)
 		&& y >= 0
 		&& y + 0.1 < map->height
 		&& y - 0.1 > 0
-		&& !(map->grid[(int) y][(int)(x + 0.1)] & WALL)
-		&& !(map->grid[(int) y][(int)(x - 0.1)] & WALL)
-		&& !(map->grid[(int)(y + 0.1)][(int) x] & WALL)
-		&& !(map->grid[(int)(y - 0.1)][(int) x] & WALL)
-		&& !(map->grid[(int)(y + 0.1)][(int)(x + 0.1)] & WALL)
-		&& !(map->grid[(int)(y + 0.1)][(int)(x - 0.1)] & WALL)
-		&& !(map->grid[(int)(y - 0.1)][(int)(x + 0.1)] & WALL)
-		&& !(map->grid[(int)(y - 0.1)][(int)(x - 0.1)] & WALL)
+		&& !(map->grid[(int) y][(int)(x + 0.1)] & invalid)
+		&& !(map->grid[(int) y][(int)(x - 0.1)] & invalid)
+		&& !(map->grid[(int)(y + 0.1)][(int) x] & invalid)
+		&& !(map->grid[(int)(y - 0.1)][(int) x] & invalid)
+		&& !(map->grid[(int)(y + 0.1)][(int)(x + 0.1)] & invalid)
+		&& !(map->grid[(int)(y + 0.1)][(int)(x - 0.1)] & invalid)
+		&& !(map->grid[(int)(y - 0.1)][(int)(x + 0.1)] & invalid)
+		&& !(map->grid[(int)(y - 0.1)][(int)(x - 0.1)] & invalid)
 	);
 }
 

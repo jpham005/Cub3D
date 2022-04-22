@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:57:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/22 15:40:13 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 03:48:47 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	is_turn_keycode(int keycode)
 		|| (keycode == MOUSE_L)
 		|| (keycode == MOUSE_R)
 	);
+}
+
+int	is_door_toggle_keycode(int keycode)
+{
+	return (keycode == KEY_E);
 }
 
 void	redraw(t_context *context)

@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 19:51:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:07:25 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 03:19:34 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	set_x_dependant_info(t_cast_info *info, int x)
 
 static void	perform_dda(t_cast_info *info, t_context *context)
 {
+	const t_map_data	walls = WALL | DOOR_CLOSED;
+
 	info->hit = 0;
 	while (!(info->hit))
 	{
@@ -39,7 +41,7 @@ static void	perform_dda(t_cast_info *info, t_context *context)
 			info->map.y += info->step.y;
 			info->hit_side = Y_SIDE;
 		}
-		if (context->map->grid[(int) info->map.y][(int) info->map.x] & WALL)
+		if (context->map->grid[(int) info->map.y][(int) info->map.x] & walls)
 			info->hit = 1;
 	}
 }

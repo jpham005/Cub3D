@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/23 02:51:04 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/23 04:21:26 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,9 @@ LIBMLX_INCLUDE		:= $(LIBMLX_DIR)
 LIBMLX				:= libmlx.dylib
 
 PARSER_DIR			:= parser
-PARSER_SRCS			:= check_field_point.c check_grid.c check_player_point.c \
-					   get_color.c get_grid_list.c get_grid.c \
-					   get_single_texture.c get_texture.c parse_map.c \
-					   t_grid_node_manage.c t_map_grid_manage.c
+PARSER_SRCS			:= check_grid.c check_point.c get_color.c get_grid_list.c \
+					   get_grid.c get_single_texture.c get_texture.c \
+					   parse_map.c t_grid_node_manage.c t_map_grid_manage.c
 PARSER_SRCS			:= $(addprefix $(PARSER_DIR)/, $(PARSER_SRCS))
 
 STRUCT_MANAGE_DIR	:= struct_manage
@@ -39,11 +38,12 @@ RAYCAST_SRCS		:= $(addprefix $(RAYCAST_DIR)/, $(RAYCAST_SRCS))
 MLX_EVENT_DIR		:= mlx_event
 MLX_EVENT_SRCS		:= key_press_handler.c handle_move_keycode.c \
 					   handle_turn_keycode.c button_press_handler.c \
-					   event_util.c
+					   handle_door_toggle_keycode.c event_util.c
 MLX_EVENT_SRCS		:= $(addprefix $(MLX_EVENT_DIR)/, $(MLX_EVENT_SRCS))
 
 MINIMAP_DIR			:= minimap
-MINIMAP_SRCS		:= minimap.c draw_minimap_wall.c minimap_util.c
+MINIMAP_SRCS		:= minimap.c draw_minimap_wall.c draw_player.c \
+					   minimap_util.c
 MINIMAP_SRCS		:= $(addprefix $(MINIMAP_DIR)/, $(MINIMAP_SRCS))
 
 SRCS				:= main.c utils.c $(STRUCT_MANAGE_SRCS) $(PARSER_SRCS) \
@@ -55,7 +55,7 @@ INCLUDE_FILES		:= cub3d.h map.h
 INCLUDE_FILES		:= $(addprefix $(INCLUDE)/, $(INCLUDE_FILES))
 
 CC					:= cc
-CFLAGS				:= -g #-Wall -Wextra -Werror
+CFLAGS				:= -g -Wall -Wextra -Werror
 RM					:= rm -f
 
 .PHONY				: all

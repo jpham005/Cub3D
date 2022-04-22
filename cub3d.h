@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/22 17:04:58 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 04:35:40 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define TEX_HEIGHT 64
 # define MINIMAP_WIDTH 250
 # define MINIMAP_HEIGHT 250
+# define DOOR_TEXTURE "./img/wood.xpm"
+# define PLAYER_HEAD_LEN 5
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;
@@ -62,7 +64,7 @@ struct s_context
 	t_img		*img;
 	t_img		*minimap;
 	t_dir		move_dir;
-	int			*texture[4];
+	int			*texture[5];
 };
 
 enum e_texture_dir
@@ -70,7 +72,8 @@ enum e_texture_dir
 	TEX_NORTH = 0,
 	TEX_WEST,
 	TEX_SOUTH,
-	TEX_EAST
+	TEX_EAST,
+	TEX_DOOR
 };
 
 enum e_hit_side
@@ -115,6 +118,14 @@ struct s_minimap
 	t_vector	pos;
 };
 
+enum e_minimap_color
+{
+	FOREGROUND_COLOR = 0xFFFFFF,
+	BACKGROUND_COLOR = 0x000000,
+	DOOR_COLOR = 0x0FFFF0,
+	PLAYER_COLOR = 0xFF0000
+};
+
 // parse map
 void			parse_map(t_map *map, char *argv);
 
@@ -139,12 +150,11 @@ void			check_grid(t_map *map);
 // load img
 int				*load_img(t_context *context, t_texture_dir dir);
 
-// check field point
+// check point
 void			check_field_point(t_map *map, size_t i, size_t j);
-
-// check player point
 void			check_player_point(t_map *map, size_t i, size_t j, \
 															size_t *player_cnt);
+void			check_door_point(t_map *map, size_t i, size_t j);
 
 // raycast
 void			cast_ray(t_context *context);
@@ -174,9 +184,13 @@ void			handle_turn_keycode(int keycode, t_context *context);
 // handle move keycode
 void			handle_move_keycode(int keycode, t_context *context);
 
+// handle door toggle keycode
+void			handle_door_toggle_keycode(t_context *context);
+
 // event util
 int				is_move_keycode(int keycode);
 int				is_turn_keycode(int keycode);
+int				is_door_toggle_keycode(int keycode);
 void			redraw(t_context *context);
 
 // struct management
@@ -207,6 +221,9 @@ void			draw_minimap(t_context *context);
 
 // draw minimap wall
 void			draw_minimap_wall(t_context *context, t_minimap *minimap);
+
+// draw player
+void			draw_player(t_context *context);
 
 // minimap util
 int				is_outrange(t_context *context, t_minimap *minimap);

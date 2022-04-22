@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 14:31:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/22 15:40:06 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 03:50:10 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	key_press_handler(int keycode, t_context *context)
 		handle_move_keycode(keycode, context);
 	else if (is_turn_keycode(keycode))
 		handle_turn_keycode(keycode, context);
+	else if (is_door_toggle_keycode(keycode))
+		handle_door_toggle_keycode(context);
 	redraw(context);
 	return (0);
 }

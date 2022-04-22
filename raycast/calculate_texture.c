@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:10:13 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:19:07 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 04:03:44 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,16 @@ static int	*choose_curr_texture(t_cast_info *info, t_context *context)
 {
 	int	*ret;
 
-	if (info->hit_side == 0)
+	if (context->map->grid[(int) info->map.y][(int) info->map.x] & DOOR_CLOSED)
+		ret = context->texture[TEX_DOOR];
+	else if (info->hit_side == 0)
 	{
 		if (info->pos.x < info->map.x)
 			ret = context->texture[TEX_EAST];
 		else
 			ret = context->texture[TEX_WEST];
 	}
-	if (info->hit_side == 1)
+	else
 	{
 		if (info->pos.y < info->map.y)
 			ret = context->texture[TEX_NORTH];

@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 17:24:09 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 11:33:00 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 03:32:13 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static t_map_data	get_map_data(char c)
 		return (FIELD);
 	if (c == '1')
 		return (WALL);
+	if (c == '2')
+		return (DOOR_CLOSED);
 	if (c == 'N')
 		return (POS_N);
 	if (c == 'S')

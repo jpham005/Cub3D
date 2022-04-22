@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 12:45:52 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/19 12:51:09 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 04:11:01 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static void	check_valid_grid_point(
 {
 	if (map->grid[i][j] & FIELD)
 		check_field_point(map, i, j);
-	if (map->grid[i][j] & PLAYER)
+	else if (map->grid[i][j] & PLAYER)
 		check_player_point(map, i, j, player_cnt);
+	else if (map->grid[i][j] & DOOR)
+		check_door_point(map, i, j);
 }
 
 /*
