@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:24:09 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 03:39:27 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 14:45:14 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static t_dir	shift_pos_dir(t_dir curr, t_rotate_dir dir)
 	return (curr);
 }
 
-static int	is_valid_point(double x, double y, t_map *map)
+static int	is_valid_move_point(double x, double y, t_map *map)
 {
-	const t_map_data	invalid = WALL | DOOR_CLOSED;
+	const t_map_data	invalid = WALL | DOOR_CLOSED | SPRITE;
 
 	return (
 		x >= 0
@@ -53,16 +53,16 @@ static int	is_valid_point(double x, double y, t_map *map)
 
 static void	move_pos(t_dir dir, t_context *context)
 {
-	if ((dir & POS_N) && is_valid_point(context->pos.x, \
+	if ((dir & POS_N) && is_valid_move_point(context->pos.x, \
 									context->pos.y - MOVE_DIS, context->map))
 		context->pos.y -= MOVE_DIS;
-	if ((dir & POS_W) && is_valid_point(context->pos.x - MOVE_DIS, \
+	if ((dir & POS_W) && is_valid_move_point(context->pos.x - MOVE_DIS, \
 												context->pos.y, context->map))
 		context->pos.x -= MOVE_DIS;
-	if ((dir & POS_S) && is_valid_point(context->pos.x, \
+	if ((dir & POS_S) && is_valid_move_point(context->pos.x, \
 									context->pos.y + MOVE_DIS, context->map))
 		context->pos.y += MOVE_DIS;
-	if ((dir & POS_E) && is_valid_point(context->pos.x + MOVE_DIS, \
+	if ((dir & POS_E) && is_valid_move_point(context->pos.x + MOVE_DIS, \
 												context->pos.y, context->map))
 		context->pos.x += MOVE_DIS;
 }

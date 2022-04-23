@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 17:24:09 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 03:32:13 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 14:42:31 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static t_map_data	get_map_data(char c)
 		return (WALL);
 	if (c == '2')
 		return (DOOR_CLOSED);
+	if (c == '3')
+		return (SPRITE);
 	if (c == 'N')
 		return (POS_N);
 	if (c == 'S')
@@ -66,7 +68,9 @@ static void	add_line_to_grid_node(t_map_grid *map_grid, char *line)
 		data = get_map_data(*line);
 		add_grid_node(&(map_grid->head), data);
 		++line;
-		if (data != END_LINE)
+		if (data & SPRITE)
+			++(map_grid->sprite_cnt);
+		if (!(data & END_LINE))
 			++width;
 	}
 	if (!width)

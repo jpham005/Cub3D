@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 12:16:24 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 14:52:43 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,8 @@ enum e_minimap_color
 	FOREGROUND_COLOR = 0xFFFFFF,
 	BACKGROUND_COLOR = 0x000000,
 	DOOR_COLOR = 0x0FFFF0,
-	PLAYER_COLOR = 0xFF0000
+	PLAYER_COLOR = 0xFF0000,
+	SPRITE_COLOR = 0x660000
 };
 
 // parse map
@@ -151,11 +152,10 @@ void			check_grid(t_map *map);
 int				*load_img(t_context *context, t_texture_dir dir);
 
 // check point
-void			check_field_point(t_map *map, size_t i, size_t j);
+int				is_valid_map_point(t_map *map, size_t i, size_t j, \
+													t_map_data_mask available);
 void			check_player_point(t_map *map, size_t i, size_t j, \
-															size_t *player_cnt);
-void			check_door_point(t_map *map, size_t i, size_t j);
-
+														size_t *player_cnt);
 // raycast
 void			cast_ray(t_context *context);
 

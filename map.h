@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:12:05 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 03:19:28 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 14:41:30 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 # define FLOOR "F"
 # define CELLING "C"
 
-typedef struct s_texture	t_texture;
-typedef enum e_map_data		t_map_data;
-typedef struct s_map_grid	t_map_grid;
-typedef struct s_map		t_map;
-typedef struct s_grid_node	t_grid_node;
+typedef struct s_texture		t_texture;
+typedef enum e_map_data			t_map_data;
+typedef enum e_map_data_mask	t_map_data_mask;
+typedef struct s_map_grid		t_map_grid;
+typedef struct s_map			t_map;
+typedef struct s_grid_node		t_grid_node;
 
 struct s_texture
 {
@@ -51,8 +52,17 @@ enum e_map_data
 	WRONG = 1 << 9,
 	DOOR_OPEND = 1 << 10,
 	DOOR_CLOSED = 1 << 11,
+	SPRITE = 1 << 12,
 	DOOR = DOOR_OPEND | DOOR_CLOSED,
 	PLAYER = POS_N | POS_S | POS_E | POS_W
+};
+
+enum e_map_data_mask
+{
+	FIELD_MASK = FIELD | WALL | PLAYER | DOOR | SPRITE,
+	PLAYER_MASK = WALL | FIELD | DOOR | SPRITE,
+	DOOR_MASK = FIELD | WALL | PLAYER | DOOR | SPRITE,
+	SPRITE_MASK = FIELD | WALL | PLAYER | DOOR | SPRITE
 };
 
 struct s_grid_node
@@ -66,6 +76,7 @@ struct s_map_grid
 	t_grid_node	*head;
 	size_t		width;
 	size_t		height;
+	size_t		sprite_cnt;
 };
 
 struct s_map
@@ -74,6 +85,7 @@ struct s_map
 	int			**grid;
 	size_t		width;
 	size_t		height;
+	size_t		sprite_cnt;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:11:57 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 04:36:58 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 13:53:32 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static int	is_edge_point(size_t width, size_t height, size_t i, size_t j)
 	return ((i == 0) || (i == height) || (j == 0) || (j == width));
 }
 
-static int	is_valid_point(t_map *map, size_t i, size_t j, t_map_data available)
+int	is_valid_map_point(
+	t_map *map, size_t i, size_t j, t_map_data_mask available
+)
 {
 	return (
 		!is_edge_point(map->width, map->height, i, j)
@@ -33,18 +35,6 @@ void	check_player_point(t_map *map, size_t i, size_t j, size_t *player_cnt)
 	if (*player_cnt)
 		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 	*player_cnt |= 1;
-	if (!is_valid_point(map, i, j, WALL | FIELD | DOOR))
-		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
-}
-
-void	check_field_point(t_map *map, size_t i, size_t j)
-{
-	if (!is_valid_point(map, i, j, FIELD | WALL | PLAYER | DOOR))
-		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
-}
-
-void	check_door_point(t_map *map, size_t i, size_t j)
-{
-	if (!is_valid_point(map, i, j, FIELD | WALL | PLAYER | DOOR))
+	if (!is_valid_map_point(map, i, j, WALL | FIELD | DOOR | SPRITE))
 		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 }
