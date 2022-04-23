@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 04:35:40 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 12:16:24 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,12 +171,8 @@ void			set_ray_vector(t_cast_info *info);
 void			set_delta_dist(t_cast_info *info);
 void			set_side_dist(t_cast_info *info);
 
-// keypress handler
-int				key_press_handler(int keycode, t_context *param);
-
-// button press handler
-int				button_press_handler(int keycode, \
-											int x, int y, t_context *context);
+// set mlx event handler
+void			set_mlx_event_handler(t_context *context);
 
 // handle turn keycode
 void			handle_turn_keycode(int keycode, t_context *context);

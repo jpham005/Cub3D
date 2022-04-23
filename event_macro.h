@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:45:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:51:31 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/23 12:18:20 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ enum e_rotate_dir
 enum e_event_list
 {
 	KEY_PRESS = 2,
-	BUTTON_PRESS = 4
+	BUTTON_PRESS = 4,
+	DESTROY_NOTIFY = 17
 };
 
 enum e_event_mask
 {
 	KEY_PRESS_MASK = 1L << 0,
-	BUTTON_PRESS_MASK = 1L << 2
+	BUTTON_PRESS_MASK = 1L << 2,
+	DESTROY_NOTIFY_MASK = 1L << 17
 };
 
 #endif
