@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/23 13:51:21 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/25 21:04:23 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ PARSER_SRCS			:= check_grid.c check_point.c get_color.c get_grid_list.c \
 PARSER_SRCS			:= $(addprefix $(PARSER_DIR)/, $(PARSER_SRCS))
 
 STRUCT_MANAGE_DIR	:= struct_manage
-STRUCT_MANAGE_SRCS	:= t_mlx_manage.c t_context_manage.c load_img.c
+STRUCT_MANAGE_SRCS	:= t_mlx_manage.c t_context_manage.c load_img.c t_sprite.c
 STRUCT_MANAGE_SRCS	:= $(addprefix $(STRUCT_MANAGE_DIR)/, $(STRUCT_MANAGE_SRCS))
 
 RAYCAST_DIR			:= raycast

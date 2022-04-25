@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 21:10:13 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/24 11:23:59 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 21:21:18 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,16 @@ static int	*choose_curr_texture(t_cast_info *info, t_context *context)
 	return (ret);
 }
 
-void	calculate_texture(t_cast_info *info, int x, t_context *context)
+void	calculate_texture(
+	t_cast_info *info, int x, t_context *context, double z_buffer[WINDOW_WIDTH]
+)
 {
 	int	*curr_texture;
 	int	y;
 	int	color;
 
 	calculate_wall_x(info);
+	z_buffer[x] = info->perp;
 	set_tex_x(info);
 	set_draw_line(info);
 	y = info->draw_start;

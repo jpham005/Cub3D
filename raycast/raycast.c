@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 19:51:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 03:19:34 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 21:21:29 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	cast_ray(t_context *context)
 {
 	t_cast_info	info;
 	int			x;
+	double		z_buffer[WINDOW_WIDTH];
 
 	init_vector(&(info.pos), context->pos.x, context->pos.y);
 	set_buffer_default(info.buffer, context->map->texture);
@@ -80,7 +81,7 @@ void	cast_ray(t_context *context)
 	{
 		set_x_dependant_info(&info, x);
 		perform_dda(&info, context);
-		calculate_texture(&info, x, context);
+		calculate_texture(&info, x, context, z_buffer);
 		++x;
 	}
 	put_buffer_pixel(context, info.buffer);

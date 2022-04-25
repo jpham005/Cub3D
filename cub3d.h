@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 14:52:43 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 22:02:16 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define ARG_ERR_MESSAGE "Error: Usage: ./cub3d file_path"
 # define MAP_ERR_MESSAGE "Error: Wrong map file"
 # define MLX_ERR_MESSAGE "Error: Mlx function error"
+# define TEXTURE_ERR_MESSAGE "Error: Wrong texture file"
 
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
@@ -32,12 +33,14 @@
 # define MINIMAP_HEIGHT 250
 # define DOOR_TEXTURE "./img/wood.xpm"
 # define PLAYER_HEAD_LEN 5
+# define SPRITE_TEXTURE_1 "./img/barrel.xpm"
+# define SPRITE_TEXTURE_2 "./img/barrel.xpm"
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;
 typedef struct s_context	t_context;
 typedef struct s_move_info	t_move_info;
-typedef enum e_texture_dir	t_texture_dir;
+typedef enum e_texture_type	t_texture_type;
 typedef struct s_cast_info	t_cast_info;
 typedef enum e_hit_side		t_hit_side;
 typedef struct s_vector		t_vector;
@@ -55,6 +58,18 @@ enum e_exit_status
 	EXIT_FATAL = 1
 };
 
+enum e_texture_type
+{
+	TEX_NORTH = 0,
+	TEX_WEST,
+	TEX_SOUTH,
+	TEX_EAST,
+	TEX_DOOR,
+	TEX_SPRITE_1,
+	TEX_SPRITE_2,
+	NUM_OF_TEX
+};
+
 struct s_context
 {
 	t_map		*map;
@@ -64,16 +79,8 @@ struct s_context
 	t_img		*img;
 	t_img		*minimap;
 	t_dir		move_dir;
-	int			*texture[5];
-};
-
-enum e_texture_dir
-{
-	TEX_NORTH = 0,
-	TEX_WEST,
-	TEX_SOUTH,
-	TEX_EAST,
-	TEX_DOOR
+	int			*texture[NUM_OF_TEX];
+	int			curr_sprite;
 };
 
 enum e_hit_side
@@ -149,7 +156,7 @@ t_map_grid		*get_grid_list(int map_file);
 void			check_grid(t_map *map);
 
 // load img
-int				*load_img(t_context *context, t_texture_dir dir);
+int				*load_img(t_context *context, t_texture_type dir);
 
 // check point
 int				is_valid_map_point(t_map *map, size_t i, size_t j, \
@@ -160,7 +167,8 @@ void			check_player_point(t_map *map, size_t i, size_t j, \
 void			cast_ray(t_context *context);
 
 // caculate texture
-void			calculate_texture(t_cast_info *info, int x, t_context *context);
+void			calculate_texture(t_cast_info *info, int x, \
+							t_context *context, double z_buffer[WINDOW_WIDTH]);
 
 // raycast util
 void			set_buffer_default(int buffer[WINDOW_HEIGHT][WINDOW_WIDTH], \
@@ -170,6 +178,7 @@ void			set_plane_vector(t_vector *plane, t_map_data pos_dir);
 void			set_ray_vector(t_cast_info *info);
 void			set_delta_dist(t_cast_info *info);
 void			set_side_dist(t_cast_info *info);
+int				is_flipped(t_cast_info *info);
 
 // set mlx event handler
 void			set_mlx_event_handler(t_context *context);
@@ -193,6 +202,10 @@ void			redraw(t_context *context);
 // t_context
 void			init_context(t_context *context, char *argv);
 
+// t_sprite
+t_sprite		*init_sprite(double x, double y);
+void			add_sprite(t_map *map, t_sprite *new);
+
 // mlx
 t_mlx_core		*init_mlx(void);
 t_img			*init_img(t_mlx_core *core);
@@ -210,7 +223,6 @@ void			exit_message(char *err_str, t_exit_status status);
 void			ft_pixel_put(t_img *img, size_t x, size_t y, int color);
 void			ft_get_data_addr(t_img *img);
 void			init_vector(t_vector *vector, double x, double y);
-int				is_flipped(t_cast_info *info);
 
 // draw minimap
 void			draw_minimap(t_context *context);

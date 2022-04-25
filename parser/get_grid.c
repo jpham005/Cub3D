@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 20:22:56 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 14:43:02 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 21:05:08 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,22 @@ grid 한 줄에 정보 저장, 전체 리스트 head에서 한 줄 만큼 읽기
 2. width보다 인덱스 i가 작다면, 공백으로 채워 넣기
 3. *head가 있다면, 그 자리는 개행 이므로 건너뛰기, 없다면 eof이므로 종료
 */
-static void	put_single_line(int *grid, t_grid_node **head, size_t width)
+static void	put_single_line(
+	t_map *map, size_t i, t_grid_node **head, size_t width
+)
 {
-	size_t	i;
+	size_t	j;
 
-	i = 0;
+	j = 0;
 	while (*head && (*head)->data != END_LINE)
 	{
-		grid[i++] = (*head)->data;
+		if ((*head)->data == SPRITE)
+			add_sprite(map, init_sprite(j, i));
+		map->grid[i][j++] = (*head)->data;
 		*head = (*head)->next;
 	}
-	while (i < width)
-		grid[i++] = SPACE;
+	while (j < width)
+		map->grid[i][j++] = SPACE;
 	if (*head)
 		*head = (*head)->next;
 }
@@ -47,7 +51,7 @@ grid에 map_grid의 정보를 담기
 2. grid의 한 줄에 width만큼 할당
 3. 해당 줄에 한 줄 만큼 순회하면서 저장, 이 때 cp는 함수 내부에서 한 줄 만큼 전진한 상태로 변경된다
 */
-static void	put_grid_node(int **grid, t_map_grid *map_grid)
+static void	put_grid_node(t_map *map, t_map_grid *map_grid)
 {
 	t_grid_node	*cp;
 	size_t		i;
@@ -56,8 +60,8 @@ static void	put_grid_node(int **grid, t_map_grid *map_grid)
 	i = 0;
 	while (cp)
 	{
-		grid[i] = ft_malloc(sizeof(int), map_grid->width);
-		put_single_line(grid[i++], &cp, map_grid->width);
+		map->grid[i] = ft_malloc(sizeof(int), map_grid->width);
+		put_single_line(map, i++, &cp, map_grid->width);
 	}
 }
 
@@ -67,7 +71,7 @@ static void	convert_grid_list(t_map *map, t_map_grid *map_grid)
 	map->height = map_grid->height;
 	map->sprite_cnt = map_grid->sprite_cnt;
 	map->grid = ft_malloc(sizeof(int *), map_grid->height);
-	put_grid_node(map->grid, map_grid);
+	put_grid_node(map, map_grid);
 }
 
 /*

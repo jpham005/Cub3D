@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 11:12:05 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 14:41:30 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 20:57:53 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_map_data_mask	t_map_data_mask;
 typedef struct s_map_grid		t_map_grid;
 typedef struct s_map			t_map;
 typedef struct s_grid_node		t_grid_node;
+typedef struct s_sprite			t_sprite;
 
 struct s_texture
 {
@@ -71,6 +72,13 @@ struct s_grid_node
 	t_grid_node	*next;
 };
 
+struct s_sprite
+{
+	double		x;
+	double		y;
+	t_sprite	*next;
+};
+
 struct s_map_grid
 {
 	t_grid_node	*head;
@@ -86,6 +94,7 @@ struct s_map
 	size_t		width;
 	size_t		height;
 	size_t		sprite_cnt;
+	t_sprite	*sprites;
 };
 
 #endif

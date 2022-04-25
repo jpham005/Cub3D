@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:11:48 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 03:21:12 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 21:58:46 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	set_img_texture(t_context *context)
 	context->texture[TEX_SOUTH] = load_img(context, TEX_SOUTH);
 	context->texture[TEX_EAST] = load_img(context, TEX_EAST);
 	context->texture[TEX_DOOR] = load_img(context, TEX_DOOR);
+	context->texture[TEX_SPRITE_1] = load_img(context, TEX_SPRITE_1);
+	context->texture[TEX_SPRITE_2] = load_img(context, TEX_SPRITE_2);
 }
 
 static void	find_pos(t_context *context)
@@ -63,4 +65,5 @@ void	init_context(t_context *context, char *argv)
 	context->core = init_mlx();
 	context->img = init_img(context->core);
 	set_img_texture(context);
+	context->minimap = ft_malloc(sizeof(t_img), 1);
 }

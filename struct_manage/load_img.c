@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 19:21:40 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 03:27:33 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/25 22:04:31 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,41 @@
 #include "libft.h"
 #include "mlx.h"
 
+static char	*get_img_path(t_context *context, t_texture_type type)
+{
+	if (type == TEX_NORTH)
+		return (context->map->texture->no);
+	else if (type == TEX_WEST)
+		return (context->map->texture->we);
+	else if (type == TEX_SOUTH)
+		return (context->map->texture->so);
+	else if (type == TEX_EAST)
+		return (context->map->texture->ea);
+	else if (type == TEX_DOOR)
+		return (DOOR_TEXTURE);
+	else if (type == TEX_SPRITE_1)
+		return (SPRITE_TEXTURE_1);
+	else if (type == TEX_SPRITE_2)
+		return (SPRITE_TEXTURE_2);
+	else
+		exit_message(TEXTURE_ERR_MESSAGE, EXIT_FATAL);
+	return (NULL);
+}
+
 static t_img	*choose_img(
-	t_context *context, t_texture_dir dir, int *width, int *height
+	t_context *context, t_texture_type type, int *width, int *height
 )
 {
 	t_img	*img;
+	void	*mlx;
+	char	*path;
 
 	img = ft_malloc(sizeof(t_img), 1);
-	if (dir == TEX_NORTH)
-		img->img = mlx_xpm_file_to_image(context->core->mlx, \
-									context->map->texture->no, width, height);
-	else if (dir == TEX_WEST)
-		img->img = mlx_xpm_file_to_image(context->core->mlx, \
-									context->map->texture->we, width, height);
-	else if (dir == TEX_SOUTH)
-		img->img = mlx_xpm_file_to_image(context->core->mlx, \
-									context->map->texture->so, width, height);
-	else if (dir == TEX_EAST)
-		img->img = mlx_xpm_file_to_image(context->core->mlx, \
-									context->map->texture->ea, width, height);
-	else if (dir == TEX_DOOR)
-		img->img = mlx_xpm_file_to_image(context->core->mlx, \
-									DOOR_TEXTURE, width, height);
+	mlx = context->core->mlx;
+	path = get_img_path(context, type);
+	img->img = mlx_xpm_file_to_image(mlx, path, width, height);
+	if (!img)
+		exit_message(TEXTURE_ERR_MESSAGE, EXIT_FATAL);
 	return (img);
 }
 
@@ -57,7 +70,7 @@ static void	set_texture_buffer(int *ret, int width, int height, t_img *img)
 	}
 }
 
-int	*load_img(t_context *context, t_texture_dir dir)
+int	*load_img(t_context *context, t_texture_type dir)
 {
 	t_img	*img;
 	int		width;
