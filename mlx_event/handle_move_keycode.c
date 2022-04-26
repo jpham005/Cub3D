@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:24:09 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 14:45:14 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/26 18:07:22 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_dir	shift_pos_dir(t_dir curr, t_rotate_dir dir)
 
 static int	is_valid_move_point(double x, double y, t_map *map)
 {
-	const t_map_data	invalid = WALL | DOOR_CLOSED | SPRITE;
+	const t_map_data	invalid = WALL | DOOR_CLOSED;
 
 	return (
 		x >= 0

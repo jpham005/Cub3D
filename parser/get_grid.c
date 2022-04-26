@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 20:22:56 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/25 21:05:08 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/26 17:04:19 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	get_grid(t_map *map, int map_file)
 	t_map_grid	*map_grid_list;
 
 	map_grid_list = get_grid_list(map_file);
-	if (!map_grid_list->width)
-		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 	convert_grid_list(map, map_grid_list);
 	del_map_grid(&map_grid_list);
 }

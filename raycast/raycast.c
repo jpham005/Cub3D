@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 19:51:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/25 21:21:29 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/26 17:29:14 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void	cast_ray(t_context *context)
 		calculate_texture(&info, x, context, z_buffer);
 		++x;
 	}
+	draw_sprite(context, &info, z_buffer);
 	put_buffer_pixel(context, info.buffer);
 }

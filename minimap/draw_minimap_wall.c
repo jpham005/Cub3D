@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 15:47:24 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 14:43:43 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/26 18:11:32 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static int	get_minimap_color(
 	t_context *context, t_minimap *minimap
 )
 {
+	const t_map_data	foreground = FIELD | PLAYER | SPRITE;
+
 	if (is_outrange(context, minimap))
 		return (BACKGROUND_COLOR);
-	if (context->map->grid[minimap->curr_y][minimap->curr_x] & (FIELD | PLAYER))
+	if (context->map->grid[minimap->curr_y][minimap->curr_x] & foreground)
 		return (FOREGROUND_COLOR);
 	if (context->map->grid[minimap->curr_y][minimap->curr_x] & DOOR)
 		return (DOOR_COLOR);
-	if (context->map->grid[minimap->curr_y][minimap->curr_x] & SPRITE)
-		return (SPRITE_COLOR);
 	return (BACKGROUND_COLOR);
 }
 
