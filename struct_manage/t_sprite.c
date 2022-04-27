@@ -6,14 +6,12 @@
 /*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:48:35 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 19:57:28 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 20:51:39 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 t_sprite	*init_sprite(double x, double y)
 {
