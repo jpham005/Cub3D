@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_move_keycode.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:24:09 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/26 18:07:22 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 14:46:29 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ static int	is_valid_move_point(double x, double y, t_map *map)
 
 	return (
 		x >= 0
-		&& x + 0.1 < map->width
-		&& x - 0.1 > 0
+		&& x + MOVE_DIS < map->width
+		&& x - MOVE_DIS > 0
 		&& y >= 0
-		&& y + 0.1 < map->height
-		&& y - 0.1 > 0
-		&& !(map->grid[(int) y][(int)(x + 0.1)] & invalid)
-		&& !(map->grid[(int) y][(int)(x - 0.1)] & invalid)
-		&& !(map->grid[(int)(y + 0.1)][(int) x] & invalid)
-		&& !(map->grid[(int)(y - 0.1)][(int) x] & invalid)
-		&& !(map->grid[(int)(y + 0.1)][(int)(x + 0.1)] & invalid)
-		&& !(map->grid[(int)(y + 0.1)][(int)(x - 0.1)] & invalid)
-		&& !(map->grid[(int)(y - 0.1)][(int)(x + 0.1)] & invalid)
-		&& !(map->grid[(int)(y - 0.1)][(int)(x - 0.1)] & invalid)
+		&& y + MOVE_DIS < map->height
+		&& y - MOVE_DIS > 0
+		&& !(map->grid[(int) y][(int)(x + MOVE_DIS)] & invalid)
+		&& !(map->grid[(int) y][(int)(x - MOVE_DIS)] & invalid)
+		&& !(map->grid[(int)(y + MOVE_DIS)][(int) x] & invalid)
+		&& !(map->grid[(int)(y - MOVE_DIS)][(int) x] & invalid)
+		&& !(map->grid[(int)(y + MOVE_DIS)][(int)(x + MOVE_DIS)] & invalid)
+		&& !(map->grid[(int)(y + MOVE_DIS)][(int)(x - MOVE_DIS)] & invalid)
+		&& !(map->grid[(int)(y - MOVE_DIS)][(int)(x + MOVE_DIS)] & invalid)
+		&& !(map->grid[(int)(y - MOVE_DIS)][(int)(x - MOVE_DIS)] & invalid)
 	);
 }
 
