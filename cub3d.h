@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 19:30:21 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 21:25:55 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ struct s_cast_info
 struct s_sprite_info
 {
 	t_vector	pos_sprite;
-	double		inv_det;
 	t_vector	transform;
 	t_vector	draw_start;
 	t_vector	draw_end;
@@ -129,7 +128,8 @@ struct s_sprite_info
 	double		sprite_width;
 	int			tex_x;
 	int			tex_y;
-	int			color;
+	int			d;
+	int			y;
 };
 
 struct s_minimap
@@ -204,6 +204,15 @@ void			draw_sprite(t_context *context, t_cast_info *info, \
 
 // sort sprite
 void			sort_sprite(t_vector *pos, t_sprite *sprite);
+
+// sprite util
+void			set_pos_sprite(t_sprite_info *info, t_context *context, \
+															t_sprite *sprite);
+void			get_transform_pos(t_sprite_info *sprite_info, \
+													t_cast_info *cast_info);
+void			calculate_draw_point(t_sprite_info *info);
+int				is_inrange_sprite(t_sprite_info *sp_info, \
+											double z_buf[WINDOW_WIDTH], int j);
 
 // set mlx event handler
 void			set_mlx_event_handler(t_context *context);

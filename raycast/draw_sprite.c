@@ -3,71 +3,72 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:09:03 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 18:17:31 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 21:27:37 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdlib.h>
-#include <stdio.h>
-void	draw_sprite(t_context *context, t_cast_info *info, double z_buffer[WINDOW_WIDTH])
+
+static void	calculate_sprite_color(
+	t_sprite_info *sp_info, t_context *context, t_cast_info *ca_info, int j
+)
 {
-	t_sprite	*sprite;
+	int	color;
+
+	sp_info->y = sp_info->draw_start.y;
+	while (sp_info->y < sp_info->draw_end.y)
+	{
+		sp_info->d = sp_info->y * 256 - WINDOW_HEIGHT * 128 \
+										+ sp_info->sprite_height * 128;
+		sp_info->tex_y = ((sp_info->d * TEX_HEIGHT) \
+										/ sp_info->sprite_height) / 256;
+		color = context->texture[context->curr_sprite][TEX_WIDTH \
+									* sp_info->tex_y + sp_info->tex_x];
+		if ((color & 0x00FFFFFF) != 0)
+			ca_info->buffer[sp_info->y][j] = color;
+		++(sp_info->y);
+	}
+}
+
+static void	get_sprite_color(t_sprite_info *sp_info, t_context *context, \
+						t_cast_info *ca_info, double z_buf[WINDOW_WIDTH])
+{
+	int	j;
+
+	j = sp_info->draw_start.x;
+	while (j < sp_info->draw_end.x)
+	{
+		sp_info->tex_x = (int)(256 * (j - (-sp_info->sprite_width / 2 + \
+		sp_info->sprite_screen_x)) * TEX_WIDTH / sp_info->sprite_width) / 256;
+		if (is_inrange_sprite(sp_info, z_buf, j))
+			calculate_sprite_color(sp_info, context, ca_info, j);
+		++j;
+	}
+}
+
+void	draw_sprite(
+	t_context *context, t_cast_info *cast_info, double z_buffer[WINDOW_WIDTH]
+)
+{
+	t_sprite		*sprite;
+	t_sprite_info	sprite_info;
+	size_t			i;
 
 	if (!context->map->sprite_cnt)
 		return ;
 	sort_sprite(&(context->pos), context->map->sprites);
 	sprite = context->map->sprites;
-	for (size_t i = 0; i < context->map->sprite_cnt; ++i)
+	i = 0;
+	while (i < context->map->sprite_cnt)
 	{
-		double	sprite_x = sprite->x - context->pos.x + 0.5;
-		double	sprite_y = sprite->y - context->pos.y + 0.5;
-
-		double	inv_det = 1.0 / (info->plane.x * info->dir.y - info->dir.x * info->plane.y);
-
-		double	transform_x = inv_det * (info->dir.y * sprite_x - info->dir.x * sprite_y);
-		double	transform_y = inv_det * (-info->plane.y * sprite_x + info->plane.x * sprite_y);
-	
-		int	sprite_screen_x = (int)((WINDOW_WIDTH / 2) * (1 + transform_x / transform_y));
-
-		int	sprite_height = abs((int)(WINDOW_HEIGHT / transform_y));
-		
-		int	draw_start_y = -sprite_height / 2 + WINDOW_HEIGHT / 2;
-		if (draw_start_y < 0)
-			draw_start_y = 0;
-		
-		int	draw_end_y = sprite_height / 2 + WINDOW_HEIGHT / 2;
-		if (draw_end_y >= WINDOW_HEIGHT)
-			draw_end_y = WINDOW_HEIGHT - 1;
-		
-		int	sprite_width = abs((int)(WINDOW_HEIGHT / transform_y));
-		int	draw_start_x = -sprite_width / 2 + sprite_screen_x;
-		if (draw_start_x < 0)
-			draw_start_x = 0;
-
-		int	draw_end_x = sprite_width / 2 + sprite_screen_x;
-		if (draw_end_x >= WINDOW_WIDTH)
-			draw_end_x = WINDOW_WIDTH - 1;
-
-		for (int j = draw_start_x; j < draw_end_x; ++j)
-		{
-			int	tex_x = (int)(256 * (j - (-sprite_width / 2 + sprite_screen_x)) * TEX_WIDTH / sprite_width) / 256;
-			(void) z_buffer;
-			if (transform_y > 0 && j > 0 && j < WINDOW_WIDTH && transform_y < z_buffer[j])
-			{
-				for (int y = draw_start_y; y < draw_end_y; ++y)
-				{
-					int d = y * 256 - WINDOW_HEIGHT * 128 + sprite_height * 128;
-					int	tex_y = ((d * TEX_HEIGHT) / sprite_height) / 256;
-					int	color = context->texture[TEX_SPRITE_1][TEX_WIDTH * tex_y + tex_x];
-					if ((color & 0x00FFFFFF) != 0)
-						info->buffer[y][j] = color;
-				}
-			}
-		}
+		set_pos_sprite(&sprite_info, context, sprite);
+		get_transform_pos(&sprite_info, cast_info);
+		calculate_draw_point(&sprite_info);
+		get_sprite_color(&sprite_info, context, cast_info, z_buffer);
 		sprite = sprite->next;
+		++i;
 	}
 }

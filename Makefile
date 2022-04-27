@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/27 19:21:32 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/27 21:24:32 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ STRUCT_MANAGE_SRCS	:= $(addprefix $(STRUCT_MANAGE_DIR)/, $(STRUCT_MANAGE_SRCS))
 RAYCAST_DIR			:= raycast
 RAYCAST_SRCS		:= raycast.c raycast_util1.c raycast_util2.c \
 					   raycast_util3.c calculate_texture.c draw_sprite.c \
-					   sort_sprite.c
+					   sort_sprite.c sprite_util1.c sprite_util2.c
 RAYCAST_SRCS		:= $(addprefix $(RAYCAST_DIR)/, $(RAYCAST_SRCS))
 
 MLX_EVENT_DIR		:= mlx_event
