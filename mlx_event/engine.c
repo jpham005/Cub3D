@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move_engine.c                                      :+:      :+:    :+:   */
+/*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:29:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 16:32:09 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 19:21:48 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,23 @@ static void	move_pos(t_dir dir, t_context *context)
 		context->pos.x += MOVE_DIS;
 }
 
-int	move_engine(t_context *context)
+static void	switch_stripe(t_context *context)
+{
+	if (context->curr_sprite == TEX_SPRITE_1)
+		context->curr_sprite = TEX_SPRITE_2;
+	else
+		context->curr_sprite = TEX_SPRITE_1;
+}
+
+int	engine(t_context *context)
 {
 	move_pos(context->move_dir, context);
+	++context->loop_cnt;
+	if (context->loop_cnt > TIME_SPRITE_SWAP)
+	{
+		switch_stripe(context);
+		context->loop_cnt = 0;
+	}
 	redraw(context);
-	return (0);
+	return (SUCCESS);
 }

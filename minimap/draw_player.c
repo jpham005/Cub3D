@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:04:46 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 04:35:03 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 19:02:45 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	draw_player(t_context *context)
 	int	y;
 
 	x = context->pos.x * ((int) MINIMAP_WIDTH / context->map->width);
-	y = context->pos.y * ((int) MINIMAP_WIDTH / context->map->height);
+	y = context->pos.y * ((int) MINIMAP_HEIGHT / context->map->height);
 	draw_player_body(x, y, context);
 	draw_player_head(x, y, context);
 }

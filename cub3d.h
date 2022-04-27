@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 18:55:55 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 19:30:21 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@
 # define PLAYER_HEAD_LEN 5
 # define SPRITE_TEXTURE_1 "./img/heart.xpm"
 # define SPRITE_TEXTURE_2 "./img/heart_off.xpm"
+# define TIME_SPRITE_SWAP 100
 
-typedef enum e_exit_status	t_exit_status;
-typedef t_map_data			t_dir;
-typedef struct s_context	t_context;
-typedef struct s_move_info	t_move_info;
-typedef enum e_texture_type	t_texture_type;
-typedef struct s_cast_info	t_cast_info;
-typedef enum e_hit_side		t_hit_side;
-typedef struct s_vector		t_vector;
-typedef struct s_minimap	t_minimap;
+typedef enum e_exit_status		t_exit_status;
+typedef t_map_data				t_dir;
+typedef struct s_context		t_context;
+typedef struct s_move_info		t_move_info;
+typedef enum e_texture_type		t_texture_type;
+typedef struct s_cast_info		t_cast_info;
+typedef struct s_sprite_info	t_sprite_info;
+typedef enum e_hit_side			t_hit_side;
+typedef struct s_vector			t_vector;
+typedef struct s_minimap		t_minimap;
 
 struct s_vector
 {
@@ -81,6 +83,7 @@ struct s_context
 	t_dir		move_dir;
 	int			*texture[NUM_OF_TEX];
 	int			curr_sprite;
+	int			loop_cnt;
 };
 
 enum e_hit_side
@@ -112,6 +115,21 @@ struct s_cast_info
 	int			tex_y;
 	double		tex_step;
 	double		tex_pos;
+};
+
+struct s_sprite_info
+{
+	t_vector	pos_sprite;
+	double		inv_det;
+	t_vector	transform;
+	t_vector	draw_start;
+	t_vector	draw_end;
+	double		sprite_screen_x;
+	double		sprite_height;
+	double		sprite_width;
+	int			tex_x;
+	int			tex_y;
+	int			color;
 };
 
 struct s_minimap
@@ -199,8 +217,8 @@ void			handle_move_keycode(int keycode, t_context *context);
 // handle door toggle keycode
 void			handle_door_toggle_keycode(t_context *context);
 
-// move engine
-int				move_engine(t_context *context);
+// engine
+int				engine(t_context *context);
 
 // event util
 int				is_move_keycode(int keycode);
