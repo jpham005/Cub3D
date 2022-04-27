@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/26 17:29:45 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 14:51:33 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ void			add_sprite(t_map *map, t_sprite *new);
 
 // mlx
 t_mlx_core		*init_mlx(void);
-t_img			*init_img(t_mlx_core *core);
+t_img			*init_img(t_mlx_core *core, int width, int height);
 
 // t_map_grid
 t_map_grid		*init_map_grid(void);

@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:11:48 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/25 21:58:46 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 14:51:40 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	init_context(t_context *context, char *argv)
 	parse_map(context->map, argv);
 	find_pos(context);
 	context->core = init_mlx();
-	context->img = init_img(context->core);
+	context->img = init_img(context->core, WINDOW_WIDTH, WINDOW_HEIGHT);
 	set_img_texture(context);
 	context->minimap = ft_malloc(sizeof(t_img), 1);
+	context->minimap = init_img(context->core, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 }
