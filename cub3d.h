@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 16:37:45 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 18:55:55 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@
 # define MINIMAP_HEIGHT 250
 # define DOOR_TEXTURE "./img/wood.xpm"
 # define PLAYER_HEAD_LEN 5
-# define SPRITE_TEXTURE_1 "./img/barrel.xpm"
-# define SPRITE_TEXTURE_2 "./img/barrel.xpm"
+# define SPRITE_TEXTURE_1 "./img/heart.xpm"
+# define SPRITE_TEXTURE_2 "./img/heart_off.xpm"
 
 typedef enum e_exit_status	t_exit_status;
 typedef t_map_data			t_dir;

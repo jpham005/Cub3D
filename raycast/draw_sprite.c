@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:09:03 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 14:40:36 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 18:17:31 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	draw_sprite(t_context *context, t_cast_info *info, double z_buffer[WINDOW_W
 	sprite = context->map->sprites;
 	for (size_t i = 0; i < context->map->sprite_cnt; ++i)
 	{
-		double	sprite_x = sprite->x - context->pos.x;
-		double	sprite_y = sprite->y - context->pos.y;
+		double	sprite_x = sprite->x - context->pos.x + 0.5;
+		double	sprite_y = sprite->y - context->pos.y + 0.5;
 
 		double	inv_det = 1.0 / (info->plane.x * info->dir.y - info->dir.x * info->plane.y);
 
