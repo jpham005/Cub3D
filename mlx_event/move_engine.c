@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   move_engine.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:29:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 16:32:09 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 20:00:11 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	del_sprite(t_map *map, int x, int y);
 
 static int	is_valid_move_point(double x, double y, t_map *map)
 {
@@ -53,6 +55,8 @@ static void	move_pos(t_dir dir, t_context *context)
 int	move_engine(t_context *context)
 {
 	move_pos(context->move_dir, context);
+	if (context->map->grid[(int)context->pos.y][(int)context->pos.x] & SPRITE)
+		del_sprite(context->map, (int) context->pos.x, (int) context->pos.y);
 	redraw(context);
 	return (0);
 }
