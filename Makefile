@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/27 21:24:32 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/27 22:23:57 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ INCLUDE_FILES		:= cub3d.h map.h
 INCLUDE_FILES		:= $(addprefix $(INCLUDE)/, $(INCLUDE_FILES))
 
 CC					:= cc
-CFLAGS				:= -g -Wall -Wextra -Werror
+CFLAGS				:= -Wall -Wextra -Werror
 RM					:= rm -f
 
 .PHONY				: all
@@ -85,7 +85,7 @@ clean				:
 fclean				: clean
 	$(RM) $(NAME) $(LIBMLX)
 	make -C $(LIBFT_DIR) fclean
-	# make -C $(LIBMLX_DIR) clean
+	make -C $(LIBMLX_DIR) clean
 
 .PHONY				: re
 re					: fclean all

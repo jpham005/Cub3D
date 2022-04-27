@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   t_sprite.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 13:48:35 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 20:55:54 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/27 22:23:35 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "libft.h"
-#include <stdlib.h>
 
 t_sprite	*init_sprite(double x, double y)
 {
@@ -47,7 +46,7 @@ void	del_sprite(t_map *map, int x, int y)
 			else
 				map->sprites = sprite->next;
 			--map->sprite_cnt;
-			free(sprite);
+			ft_free((void **) &sprite);
 			return ;
 		}
 		tmp = sprite;

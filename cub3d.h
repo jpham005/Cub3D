@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 21:30:28 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 22:00:19 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WINDOW_HEIGHT 720
 # define TITLE "Cub3d"
 # define FOV_DIS 0.5
-# define MOVE_DIS 0.05
+# define MOVE_DIS 0.09
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define MINIMAP_WIDTH 250
@@ -162,7 +162,7 @@ void			get_texture(t_map *map, int map_file);
 void			get_single_texture(t_texture *texture, int map_file, size_t *i);
 
 // get color
-int				get_color(char *str);
+int				get_color(char **line_info);
 
 // get grid
 void			get_grid(t_map *map, int map_file);

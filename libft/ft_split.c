@@ -14,42 +14,40 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static size_t	get_size(const char *s, char c)
+static size_t	get_size(const char *str, const char *sep)
 {
-	size_t	ret;
 	size_t	i;
 	size_t	temp;
+	size_t	cnt;
 
-	ret = 0;
 	i = 0;
-	while (s[i])
+	cnt = 0;
+	while (str[i])
 	{
-		while (c && s[i] == c)
+		while (str[i] && ft_strchr(sep, str[i]))
 			i++;
 		temp = i;
-		while (s[i] && s[i] != c)
+		while (str[i] && !ft_strchr(sep, str[i]))
 			i++;
-		if (temp != i)
-			ret++;
+		if (i != temp)
+			cnt++;
 	}
+	return (cnt);
+}
+
+static char	*get_string(const char *str, size_t i, size_t temp)
+{
+	char	*ret;
+	size_t	len;
+
+	len = i - temp;
+	ret = ft_malloc(sizeof(char), len + 1);
+	ft_memcpy(ret, str + temp, len);
+	ret[len] = '\0';
 	return (ret);
 }
 
-static int	free_all(char **ret)
-{
-	size_t	i;
-
-	i = 0;
-	while (ret[i])
-	{
-		free(ret[i]);
-		ret[i] = NULL;
-		i++;
-	}
-	return (0);
-}
-
-static int	split_strings(char **ret, const char *s, char c)
+static char	**split_string(char **ret, const char *str, const char *sep)
 {
 	size_t	i;
 	size_t	j;
@@ -57,35 +55,27 @@ static int	split_strings(char **ret, const char *s, char c)
 
 	i = 0;
 	j = 0;
-	while (s[i])
+	while (str[i])
 	{
-		while (s[i] == c)
+		while (str[i] && ft_strchr(sep, str[i]))
 			i++;
 		temp = i;
-		while (s[i] && s[i] != c)
+		while (str[i] && !ft_strchr(sep, str[i]))
 			i++;
-		if (temp != i)
-		{
-			ret[j] = ft_substr(s, temp, i - temp);
-			if (!ret[j++])
-				return (free_all(ret));
-		}
-		ret[j] = NULL;
+		if (i != temp)
+			ret[j++] = get_string(str, i, temp);
 	}
-	return (1);
+	ret[j] = NULL;
+	return (ret);
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(const char *str, char *sep)
 {
 	char	**ret;
+	size_t	ret_size;
 
-	ret = ft_calloc(sizeof(char *), get_size(s, c) + 1);
-	if (!ret)
-		return (NULL);
-	if (!split_strings(ret, s, c))
-	{
-		free(ret);
-		ret = NULL;
-	}
+	ret_size = get_size(str, sep);
+	ret = ft_malloc(sizeof(char *), ret_size + 1);
+	split_string(ret, str, sep);
 	return (ret);
 }
