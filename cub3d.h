@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 21:25:55 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 21:30:28 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,7 @@ void			init_context(t_context *context, char *argv);
 // t_sprite
 t_sprite		*init_sprite(double x, double y);
 void			add_sprite(t_map *map, t_sprite *new);
+void			del_sprite(t_map *map, int x, int y);
 
 // mlx
 t_mlx_core		*init_mlx(void);

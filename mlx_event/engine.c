@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 16:29:41 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 19:21:48 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 21:30:21 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	engine(t_context *context)
 		switch_stripe(context);
 		context->loop_cnt = 0;
 	}
+	if (context->map->grid[(int)context->pos.y][(int)context->pos.x] & SPRITE)
+		del_sprite(context->map, (int) context->pos.x, (int) context->pos.y);
 	redraw(context);
 	return (SUCCESS);
 }

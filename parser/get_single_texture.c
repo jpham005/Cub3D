@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_single_texture.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 14:21:50 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/16 12:33:02 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 20:43:57 by dha              ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	set_texture_value(t_texture *texture, char **line_info)
 		texture->f = get_color(line_info[1]);
 	else if (ft_iseq(line_info[0], CELLING))
 		texture->c = get_color(line_info[1]);
+	else
+		exit_message(MAP_ERR_MESSAGE, EXIT_FATAL);
 }
 
 static void	clear_line(char **line, char ***line_info)
