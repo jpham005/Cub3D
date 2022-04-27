@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:57:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 14:52:24 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 16:33:19 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,21 @@ void	redraw(t_context *context)
 	mlx_put_image_to_window(context->core->mlx, \
 								context->core->window, context->img->img, 0, 0);
 	draw_minimap(context);
+}
+
+t_dir	shift_pos_dir(t_dir curr, t_rotate_dir dir)
+{
+	if (dir == LEFT)
+	{
+		curr <<= 1;
+		if (!(curr & PLAYER))
+			curr = POS_N;
+	}
+	else
+	{
+		curr >>= 1;
+		if (!(curr & PLAYER))
+			curr = POS_E;
+	}
+	return (curr);
 }

@@ -6,7 +6,7 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/26 17:33:28 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/27 16:33:56 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ RAYCAST_SRCS		:= $(addprefix $(RAYCAST_DIR)/, $(RAYCAST_SRCS))
 MLX_EVENT_DIR		:= mlx_event
 MLX_EVENT_SRCS		:= set_mlx_event_handler.c handle_move_keycode.c \
 					   handle_turn_keycode.c handle_door_toggle_keycode.c \
-					   event_util.c
+					   move_engine.c event_util.c
 MLX_EVENT_SRCS		:= $(addprefix $(MLX_EVENT_DIR)/, $(MLX_EVENT_SRCS))
 
 MINIMAP_DIR			:= minimap

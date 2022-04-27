@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:45:47 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 12:18:20 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 16:28:19 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ enum e_keymap
 	KEY_ESC = 53,
 	KEY_L_A = 123,
 	KEY_R_A = 124,
-	MOUSE_L = 1,
-	MOUSE_R = 2
+	MOUSE_CODE = 200,
+	MOUSE_L = 1 + MOUSE_CODE,
+	MOUSE_R = 2 + MOUSE_CODE
 };
 
 enum e_rotate_dir
@@ -41,6 +42,7 @@ enum e_rotate_dir
 enum e_event_list
 {
 	KEY_PRESS = 2,
+	KEY_RELEASE = 3,
 	BUTTON_PRESS = 4,
 	DESTROY_NOTIFY = 17
 };
@@ -48,6 +50,7 @@ enum e_event_list
 enum e_event_mask
 {
 	KEY_PRESS_MASK = 1L << 0,
+	KEY_RELEASE_MASK = 1L << 1,
 	BUTTON_PRESS_MASK = 1L << 2,
 	DESTROY_NOTIFY_MASK = 1L << 17
 };

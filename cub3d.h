@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 20:03:31 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 14:51:33 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 16:37:45 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define WINDOW_HEIGHT 720
 # define TITLE "Cub3d"
 # define FOV_DIS 0.5
-# define MOVE_DIS 0.1
+# define MOVE_DIS 0.05
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define MINIMAP_WIDTH 250
@@ -199,11 +199,15 @@ void			handle_move_keycode(int keycode, t_context *context);
 // handle door toggle keycode
 void			handle_door_toggle_keycode(t_context *context);
 
+// move engine
+int				move_engine(t_context *context);
+
 // event util
 int				is_move_keycode(int keycode);
 int				is_turn_keycode(int keycode);
 int				is_door_toggle_keycode(int keycode);
 void			redraw(t_context *context);
+t_dir			shift_pos_dir(t_dir curr, t_rotate_dir dir);
 
 // struct management
 // t_context

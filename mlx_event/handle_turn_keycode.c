@@ -6,24 +6,39 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 15:21:39 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/21 15:57:18 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 17:26:59 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	handle_turn_keycode(int keycode, t_context *context)
+static t_dir	get_rotated_dir(int keycode, t_dir dir)
 {
+	t_dir	ret;
+
 	if ((keycode == KEY_L_A) || (keycode == MOUSE_L))
 	{
-		context->pos_dir <<= 1;
-		if (!(context->pos_dir & PLAYER))
-			context->pos_dir = POS_N;
+		ret = dir << 1;
+		if (ret & ~PLAYER)
+		{
+			ret &= PLAYER;
+			ret |= POS_N;
+		}
 	}
-	if ((keycode == KEY_R_A) || (keycode == MOUSE_R))
+	else
 	{
-		context->pos_dir >>= 1;
-		if (!(context->pos_dir & PLAYER))
-			context->pos_dir = POS_E;
+		ret = dir >> 1;
+		if (ret & ~PLAYER)
+		{
+			ret &= PLAYER;
+			ret |= POS_E;
+		}
 	}
+	return (ret);
+}
+
+void	handle_turn_keycode(int keycode, t_context *context)
+{
+	context->pos_dir = get_rotated_dir(keycode, context->pos_dir);
+	context->move_dir = get_rotated_dir(keycode, context->move_dir);
 }
