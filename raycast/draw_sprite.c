@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:09:03 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/26 21:08:40 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 14:40:36 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 #include <stdio.h>
 void	draw_sprite(t_context *context, t_cast_info *info, double z_buffer[WINDOW_WIDTH])
 {
+	t_sprite	*sprite;
+
 	if (!context->map->sprite_cnt)
 		return ;
 	sort_sprite(&(context->pos), context->map->sprites);
-	
-	// for (size_t i = 0; i < context->map->sprite_cnt; ++i)
-	// {
-		double	sprite_x = context->map->sprites->x - context->pos.x;
-		double	sprite_y = context->map->sprites->y - context->pos.y;
+	sprite = context->map->sprites;
+	for (size_t i = 0; i < context->map->sprite_cnt; ++i)
+	{
+		double	sprite_x = sprite->x - context->pos.x;
+		double	sprite_y = sprite->y - context->pos.y;
 
 		double	inv_det = 1.0 / (info->plane.x * info->dir.y - info->dir.x * info->plane.y);
 
@@ -65,10 +67,7 @@ void	draw_sprite(t_context *context, t_cast_info *info, double z_buffer[WINDOW_W
 						info->buffer[y][j] = color;
 				}
 			}
-			else
-			{
-				printf("%f\n", transform_y);
-			}
 		}
-	// }
+		sprite = sprite->next;
+	}
 }

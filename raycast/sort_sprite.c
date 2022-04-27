@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 16:30:37 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/26 17:35:38 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/27 14:40:57 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	compare_distance(t_vector *pos, t_sprite *sprite, t_sprite *cp)
 
 	sprite_dis = get_dis(pos, sprite);
 	cp_dis = get_dis(pos, cp);
-	return (sprite_dis < cp_dis);
+	return (sprite_dis >= cp_dis);
 }
 
 static void	swap_sprite(t_sprite *sprite, t_sprite *cp)
