@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_img.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dha <dha@student.42seoul.kr>               +#+  +:+       +#+        */
+/*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 19:21:40 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/27 20:49:47 by dha              ###   ########seoul.kr  */
+/*   Updated: 2022/04/28 10:30:30 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_img	*choose_img(
 	mlx = context->core->mlx;
 	path = get_img_path(context, type);
 	img->img = mlx_xpm_file_to_image(mlx, path, width, height);
-	if (!img || *width != 64 || *height != 64)
+	if (!img->img || *width != 64 || *height != 64)
 		exit_message(TEXTURE_ERR_MESSAGE, EXIT_FATAL);
 	return (img);
 }
