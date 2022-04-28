@@ -6,11 +6,11 @@
 #    By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/13 22:36:11 by jaham             #+#    #+#              #
-#    Updated: 2022/04/27 22:23:57 by jaham            ###   ########.fr        #
+#    Updated: 2022/04/28 10:33:59 by jaham            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME				:= cub3d
+NAME				:= cub3D
 
 LIBFT_DIR			:= libft
 LIBFT_INCLUDE		:= $(LIBFT_DIR)
