@@ -6,7 +6,7 @@
 /*   By: jaham <jaham@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 04:11:57 by jaham             #+#    #+#             */
-/*   Updated: 2022/04/23 13:53:32 by jaham            ###   ########.fr       */
+/*   Updated: 2022/04/29 10:50:08 by jaham            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_edge_point(size_t width, size_t height, size_t i, size_t j)
 {
-	return ((i == 0) || (i == height) || (j == 0) || (j == width));
+	return ((i == 0) || (i + 1 == height) || (j == 0) || (j + 1 == width));
 }
 
 int	is_valid_map_point(
